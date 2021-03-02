@@ -57,6 +57,8 @@ Convert.ToInt32(ConfigurationManager.AppSettings["SmtpClientPort"]),
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IImplementerStorage, ImplementerStorage>(new
            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IWarehouseStorage, WarehouseStorage>(new
+           HierarchicalLifetimeManager());
             currentContainer.RegisterType<IMessageInfoStorage, MessageInfoStorage>(new
 HierarchicalLifetimeManager());
             currentContainer.RegisterType<ComponentLogic>(new

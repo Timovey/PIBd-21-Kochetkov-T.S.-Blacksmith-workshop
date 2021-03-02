@@ -140,5 +140,17 @@ namespace BlacksmithWorkshopView
             var form = Container.Resolve<FormMails>();
             form.ShowDialog();
         }
+
+        private void складыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormWarehouses>();
+            form.ShowDialog();
+        }
+
+        private void пополнениеСкладаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormAdditionToWarehouse>();
+            form.ShowDialog();
+        }
     }
 }
