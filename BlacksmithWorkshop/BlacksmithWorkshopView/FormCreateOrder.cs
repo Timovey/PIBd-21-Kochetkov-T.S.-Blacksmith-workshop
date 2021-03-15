@@ -32,7 +32,7 @@ namespace BlacksmithWorkshopView
                     foreach(var l in list)
                     {
                         
-                        comboBoxProduct.DisplayMember = "ProductName";
+                        comboBoxProduct.DisplayMember = "ManufactureName";
                         comboBoxProduct.ValueMember = "Id";
                         comboBoxProduct.DataSource = list;
                         comboBoxProduct.SelectedItem = null;
@@ -95,7 +95,7 @@ namespace BlacksmithWorkshopView
             {
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
-                    ProductId = Convert.ToInt32(comboBoxProduct.SelectedValue),
+                    ManufactureId = Convert.ToInt32(comboBoxProduct.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });
