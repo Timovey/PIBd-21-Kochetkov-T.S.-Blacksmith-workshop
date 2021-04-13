@@ -15,17 +15,7 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
             using (var context = new BlacksmithWorkshopDatabase())
             {
                 return context.Orders
-               .Select(rec => new OrderViewModel
-               {
-                   Id = rec.Id,
-                   ManufactureId = rec.Manufacture.Id,
-                   ManufactureName = context.Manufactures.Include(man => man.Orders).FirstOrDefault(man => man.Id == rec.Id).ManufactureName,
-                   Count = rec.Count,
-                   Sum = rec.Sum,
-                   Status = rec.Status,
-                   DateCreate = rec.DateCreate,
-                   DateImplement = rec.DateImplement
-               })
+               .Select(CreateModel)
                .ToList();
             }
         }
@@ -38,19 +28,11 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
             using (var context = new BlacksmithWorkshopDatabase())
             {
                 return context.Orders
-              .Where(rec => rec.Manufacture.Id == model.ManufactureId && rec.Count == model.Count)
-               .Select(rec => new OrderViewModel
-               {
-                   Id = rec.Id,
-                   ManufactureId = rec.Manufacture.Id,
-                   ManufactureName = context.Manufactures.Include(man => man.Orders).FirstOrDefault(man => man.Id == rec.Id).ManufactureName,
-                   Count = rec.Count,
-                   Sum = rec.Sum,
-                   Status = rec.Status,
-                   DateCreate = rec.DateCreate,
-                   DateImplement = rec.DateImplement
-               })
+              .Where(rec => rec.Manufacture.Id == model.ManufactureId || (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
+               .Select(CreateModel)
                .ToList();
+
+
             }
         }
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -62,19 +44,9 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
             using (var context = new BlacksmithWorkshopDatabase())
             {
                 var order = context.Orders
-                .FirstOrDefault(rec => rec.Id == model.Id || rec.Id == model.Id);
+                .FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
-                new OrderViewModel
-                {
-                    Id = order.Id,
-                    ManufactureId = order.ManufactureId,
-                    ManufactureName = context.Manufactures.FirstOrDefault(man => man.Id == order.ManufactureId)?.ManufactureName,
-                    Count = order.Count,
-                    Sum = order.Sum,
-                    Status = order.Status,
-                    DateCreate = order.DateCreate,
-                    DateImplement = order?.DateImplement
-                } : null;
+                CreateModel(order) : null;
             }
         }
         public void Insert(OrderBindingModel model)
