@@ -30,6 +30,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
         {
             _orderStorage.Insert(new OrderBindingModel
             {
+                ClientId = model.ClientId,
                 ManufactureId = model.ManufactureId,
                 Count = model.Count,
                 Sum = model.Sum,
@@ -55,10 +56,12 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 ManufactureId = order.ManufactureId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
+                DateImplement = order.DateImplement,
                 Status = OrderStatus.Выполняется
             });
         }
@@ -80,6 +83,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 ManufactureId = order.ManufactureId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -108,6 +112,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 ManufactureId = order.ManufactureId,
                 Count = order.Count,
                 Sum = order.Sum,

@@ -30,13 +30,13 @@ namespace BlacksmithWorkshopView
         {
             try
             {
-                // продумать логику
                 var list = _orderLogic.Read(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
+                    dataGridView.Columns[2].Visible = false;
                 }
 
             }
@@ -153,6 +153,12 @@ namespace BlacksmithWorkshopView
                    MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClients>();
+            form.ShowDialog();
         }
     }
 }

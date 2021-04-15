@@ -4,8 +4,7 @@ using BlacksmithWorkshopBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BlacksmithWorkshopListImplements;
-using BlacksmithWorkshopListImplements.Models;
+using BlacksmithWorkshopFileImplements.Models;
 
 namespace BlacksmithWorkshopFileImplements.Implements
 {

@@ -19,6 +19,26 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientFIO")
+                        .IsRequired();
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("Password")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
+
             modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.Component", b =>
                 {
                     b.Property<int>("Id")
@@ -76,6 +96,8 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClientId");
+
                     b.Property<int>("Count");
 
                     b.Property<DateTime>("DateCreate");
@@ -89,6 +111,8 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
                     b.Property<decimal>("Sum");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("ManufactureId");
 
@@ -110,6 +134,11 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
 
             modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.Order", b =>
                 {
+                    b.HasOne("BlacksmithWorkshopDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Order")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("BlacksmithWorkshopDatabaseImplement.Models.Manufacture", "Manufacture")
                         .WithMany("Orders")
                         .HasForeignKey("ManufactureId")
