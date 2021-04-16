@@ -40,7 +40,7 @@ namespace BlacksmithWorkshopFileImplements.Implements
                 return null;
             }
             var client = source.Clients
-            .FirstOrDefault(rec => rec.Email == model.Email || rec.Id == model.Id);
+            .FirstOrDefault(rec => rec.Id == model.Id);
             return client != null ? CreateModel(client) : null;
         }
         public void Insert(ClientBindingModel model)
@@ -54,7 +54,7 @@ namespace BlacksmithWorkshopFileImplements.Implements
             var element = source.Clients.FirstOrDefault(rec => rec.Id == model.Id);
             if (element == null)
             {
-                throw new Exception("Клиент не найден");
+                throw new Exception("Элемент не найден");
             }
             CreateModel(model, element);
         }
@@ -67,7 +67,7 @@ namespace BlacksmithWorkshopFileImplements.Implements
             }
             else
             {
-                throw new Exception("Клиент не найден");
+                throw new Exception("Элемент не найден");
             }
         }
         private Client CreateModel(ClientBindingModel model, Client client)

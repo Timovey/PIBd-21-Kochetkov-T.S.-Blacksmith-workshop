@@ -35,7 +35,7 @@ namespace BlacksmithWorkshopListImplements.Implements
             List<ClientViewModel> result = new List<ClientViewModel>();
             foreach (var client in source.Clients)
             {
-                if (client.Email.Contains(model.Email) && client.Password.Contains(model.Password))
+                if (client.Email.Contains(model.Email))
                 {
                     result.Add(CreateModel(client));
                 }
@@ -55,7 +55,7 @@ namespace BlacksmithWorkshopListImplements.Implements
             }
             foreach (var client in source.Clients)
             {
-                if (client.Id == model.Id || client.Email.Contains(model.Email))
+                if (client.Id == model.Id)
                 {
                     return CreateModel(client);
                 }
