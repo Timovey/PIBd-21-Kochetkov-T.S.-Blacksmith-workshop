@@ -30,7 +30,7 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
             using (var context = new BlacksmithWorkshopDatabase())
             {
                 return context.Clients
-                .Where(rec => rec.Email == model.Email && rec.Password == rec.Password)
+                .Where(rec => rec.Email == model.Email && rec.Password == model.Password)
                 .Select(CreateModel)
                 .ToList();
             }

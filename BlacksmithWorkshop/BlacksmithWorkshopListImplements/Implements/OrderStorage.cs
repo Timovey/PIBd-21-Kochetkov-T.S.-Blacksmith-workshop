@@ -116,12 +116,12 @@ namespace BlacksmithWorkshopListImplements.Implements
         }
         private OrderViewModel CreateModel(Order order)
         {
-            string productName = null;
+            string manufactureName = null;
             foreach(var pr in source.Products)
             {
                 if(pr.Id == order.ManufactureId)
                 {
-                    productName = pr.ManufactureName;
+                    manufactureName = pr.ManufactureName;
                 }
             }
             string clientFIO = "";
@@ -148,7 +148,7 @@ namespace BlacksmithWorkshopListImplements.Implements
                 ClientId = order.ClientId,
                 ClientFIO = clientFIO,
                 ManufactureId = order.ManufactureId,
-                ManufactureName = productName,
+                ManufactureName = manufactureName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,

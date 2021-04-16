@@ -137,7 +137,7 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
-            order.ClientId = model.ClientId.Value;
+            order.ClientId = (int)model.ClientId;
             order.ImplementerId = model.ImplementerId;
 
             return order;
