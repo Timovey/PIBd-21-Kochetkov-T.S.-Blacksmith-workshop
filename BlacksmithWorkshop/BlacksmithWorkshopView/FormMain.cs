@@ -152,5 +152,6 @@ namespace BlacksmithWorkshopView
             var form = Container.Resolve<FormAdditionToWarehouse>();
             form.ShowDialog();
         }
+
     }
 }
