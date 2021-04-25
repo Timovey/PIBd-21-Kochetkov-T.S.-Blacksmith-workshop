@@ -9,10 +9,12 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
     public class WarehouseLogic
     {
         private readonly IWarehouseStorage _warehouseStorage;
+        private readonly IComponentStorage _componentStorage;
 
-        public WarehouseLogic(IWarehouseStorage warehouseStorage)
+        public WarehouseLogic(IWarehouseStorage warehouseStorage, IComponentStorage componentStorage)
         {
             _warehouseStorage = warehouseStorage;
+            _componentStorage = componentStorage;
         }
         public List<WarehouseViewModel> Read(WarehouseBindingModel model)
         {
@@ -67,7 +69,32 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             {
                 throw new Exception("Склад не найден");
             }
-            _warehouseStorage.Reffil(model);
+            if(element.WerehouseComponents.ContainsKey(model.ComponentId))
+            {
+                element.WerehouseComponents[model.ComponentId] = (element.WerehouseComponents[model.ComponentId].Item1, 
+                    element.WerehouseComponents[model.ComponentId].Item2 + model.Count);
+            }
+            else
+            {
+                var component = _componentStorage.GetElement(new ComponentBindingModel
+                {
+                    Id = model.ComponentId
+                });
+                if(component == null)
+                {
+                    throw new Exception("Компонент не найден");
+                }
+                element.WerehouseComponents.Add(component.Id, (component.ComponentName, model.Count));
+            }
+            _warehouseStorage.Update(new WarehouseBindingModel
+            {
+                Id = element.Id,
+                Name = element.Name,
+                Surname = element.Surname,
+                DateCreate = element.DateCreate,
+                WerehouseComponents = element.WerehouseComponents
+            });
+
         }
     }
 }
