@@ -16,7 +16,7 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
         {
             using (var context = new BlacksmithWorkshopDatabase())
             {
-                return context.Orders.Include(rec => rec.ImplementerId).Include(rec => rec.Client).Include(rec => rec.Implementer).Select(rec => new OrderViewModel
+                return context.Orders.Include(rec => rec.Client).Include(rec => rec.Implementer).Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
                     ManufactureId = rec.ManufactureId,
@@ -80,7 +80,7 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
                     ManufactureId = order.ManufactureId,
                     ClientId = order.ClientId,
                     ImplementerId = order.ImplementerId,
-                    ManufactureName = context.Manufactures.Include(pr => pr.Orders).FirstOrDefault(rec => rec.Id == order.ManufactureId)?.ManufactureName,
+                    ManufactureName = order.Manufacture?.ManufactureName,
                     ClientFIO = context.Clients.Include(pr => pr.Order).FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
                     ImplementerFIO = context.Implementers.Include(pr => pr.Order).FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFIO,
                     Count = order.Count,
