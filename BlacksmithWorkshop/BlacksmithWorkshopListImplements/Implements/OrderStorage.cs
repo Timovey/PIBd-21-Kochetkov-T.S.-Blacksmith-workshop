@@ -99,6 +99,7 @@ namespace BlacksmithWorkshopListImplements.Implements
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.ManufactureId = model.ManufactureId;
+            order.ClientId = (int)model.ClientId;
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -106,26 +107,36 @@ namespace BlacksmithWorkshopListImplements.Implements
             order.DateImplement = model.DateImplement;
             return order;
         }
-        private OrderViewModel CreateModel(Order component)
+        private OrderViewModel CreateModel(Order order)
         {
-            String productName = null;
+            string manufactureName = null;
             foreach(var pr in source.Products)
             {
-                if(pr.Id == component.ManufactureId)
+                if(pr.Id == order.ManufactureId)
                 {
-                    productName = pr.ManufactureName;
+                    manufactureName = pr.ManufactureName;
+                }
+            }
+            string clientFIO = "";
+            for (int i = 0; i < source.Clients.Count; ++i)
+            {
+                if (source.Clients[i].Id == order.ClientId)
+                {
+                    clientFIO = source.Clients[i].ClientFIO;
                 }
             }
             return new OrderViewModel
             {
-                Id = component.Id,
-                ManufactureId = component.ManufactureId,
-                ManufactureName = productName,
-                Count = component.Count,
-                Sum = component.Sum,
-                Status = component.Status,
-                DateCreate = component.DateCreate,
-                DateImplement = component.DateImplement
+                Id = order.Id,
+                ClientId = order.ClientId,
+                ClientFIO = clientFIO,
+                ManufactureId = order.ManufactureId,
+                ManufactureName = manufactureName,
+                Count = order.Count,
+                Sum = order.Sum,
+                Status = order.Status,
+                DateCreate = order.DateCreate,
+                DateImplement = order.DateImplement
 
             };
         }

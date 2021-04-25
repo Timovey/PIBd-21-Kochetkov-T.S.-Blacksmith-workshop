@@ -4,8 +4,7 @@ using BlacksmithWorkshopBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BlacksmithWorkshopListImplements;
-using BlacksmithWorkshopListImplements.Models;
+using BlacksmithWorkshopFileImplements.Models;
 
 namespace BlacksmithWorkshopFileImplements.Implements
 {
@@ -80,6 +79,7 @@ namespace BlacksmithWorkshopFileImplements.Implements
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.ManufactureId = model.ManufactureId;
+            order.ClientId = (int)model.ClientId;
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -93,7 +93,10 @@ namespace BlacksmithWorkshopFileImplements.Implements
             {
 
                 Id = order.Id,
+                ClientId = order.ClientId,
+                ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
                 ManufactureId = order.ManufactureId,
+                ManufactureName = source.Manufactures.FirstOrDefault(rec => rec.Id == order.ManufactureId)?.ManufactureName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
