@@ -1,6 +1,7 @@
 ﻿using BlacksmithWorkshopBusinessLogic.BindingModels;
 using BlacksmithWorkshopBusinessLogic.Interfaces;
 using BlacksmithWorkshopBusinessLogic.ViewModels;
+using BlacksmithWorkshopBusinessLogic.Enums;
 using BlacksmithWorkshopListImplements.Models;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,12 @@ namespace BlacksmithWorkshopListImplements.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (order.ManufactureId == model.ManufactureId || (order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo))
+                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                    order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date) ||
+                    (model.ClientId.HasValue && order.ClientId == model.ClientId) ||
+                    (model.FreeOrders.HasValue && model.FreeOrders.Value && order.Status == OrderStatus.Принят) ||
+                    (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && order.Status == OrderStatus.Выполняется))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -100,6 +106,7 @@ namespace BlacksmithWorkshopListImplements.Implements
         {
             order.ManufactureId = model.ManufactureId;
             order.ClientId = (int)model.ClientId;
+            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -125,9 +132,19 @@ namespace BlacksmithWorkshopListImplements.Implements
                     clientFIO = source.Clients[i].ClientFIO;
                 }
             }
+            string implementerFIO = "";
+            for (int i = 0; i < source.Implementers.Count; ++i)
+            {
+                if (source.Implementers[i].Id == order.ImplementerId)
+                {
+                    implementerFIO = source.Implementers[i].ImplementerFIO;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = implementerFIO,
                 ClientId = order.ClientId,
                 ClientFIO = clientFIO,
                 ManufactureId = order.ManufactureId,

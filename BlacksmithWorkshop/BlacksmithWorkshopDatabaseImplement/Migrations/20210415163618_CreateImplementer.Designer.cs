@@ -4,14 +4,16 @@ using BlacksmithWorkshopDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlacksmithWorkshopDatabaseImplement.Migrations
 {
     [DbContext(typeof(BlacksmithWorkshopDatabase))]
-    partial class BlacksmithWorkshopDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20210415163618_CreateImplementer")]
+    partial class CreateImplementer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,7 +124,7 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
 
                     b.Property<DateTime?>("DateImplement");
 
-                    b.Property<int?>("ImplementerId");
+                    b.Property<int>("ImplementerId");
 
                     b.Property<int>("ManufactureId");
 
@@ -163,7 +165,8 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
 
                     b.HasOne("BlacksmithWorkshopDatabaseImplement.Models.Implementer", "Implementer")
                         .WithMany("Order")
-                        .HasForeignKey("ImplementerId");
+                        .HasForeignKey("ImplementerId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BlacksmithWorkshopDatabaseImplement.Models.Manufacture", "Manufacture")
                         .WithMany("Orders")

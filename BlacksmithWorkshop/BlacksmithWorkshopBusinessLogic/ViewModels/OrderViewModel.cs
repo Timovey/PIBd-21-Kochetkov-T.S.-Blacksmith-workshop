@@ -14,11 +14,16 @@ namespace BlacksmithWorkshopBusinessLogic.ViewModels
 	{
 		[DataMember]
 		public int Id { get; set; }
-		[DataMember]
+        [DataMember]
+        public int? ImplementerId { get; set; }
+        [DataMember]
 		public int ClientId { get; set; }
 		[DataMember]
 		public int ManufactureId { get; set; }
-		[DataMember]
+        [DataMember]
+        [DisplayName("Работник")]
+        public string ImplementerFIO { get; set; }
+        [DataMember]
         [DisplayName("Клиент")]
         public string ClientFIO { get; set; }
         [DataMember]
