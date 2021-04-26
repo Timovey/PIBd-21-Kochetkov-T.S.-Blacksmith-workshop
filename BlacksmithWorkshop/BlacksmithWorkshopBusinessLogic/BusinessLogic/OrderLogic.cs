@@ -30,7 +30,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
         {
             _orderStorage.Insert(new OrderBindingModel
             {
-                ProductId = model.ProductId,
+                ProductId = model.ManufactureId,
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
