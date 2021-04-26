@@ -11,9 +11,9 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
     {
         private readonly IManufactureStorage _manufactureStorage;
 
-        public ManufactureLogic(IManufactureStorage productStorage)
+        public ManufactureLogic(IManufactureStorage manufactureStorage)
         {
-            _manufactureStorage = productStorage;
+            _manufactureStorage = manufactureStorage;
         }
         public List<ManufactureViewModel> Read(ManufactureBindingModel model)
         {
@@ -32,7 +32,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
         {
             var element = _manufactureStorage.GetElement(new ManufactureBindingModel
             {
-                ProductName = model.ProductName
+                ManufactureName = model.ManufactureName
             });
             if (element != null && element.Id != model.Id)
             {

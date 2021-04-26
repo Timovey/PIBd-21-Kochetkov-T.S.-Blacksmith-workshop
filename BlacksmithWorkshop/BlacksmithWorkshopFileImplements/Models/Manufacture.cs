@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlacksmithWorkshopBusinessLogic.BindingModels
+namespace BlacksmithWorkshopListImplements.Models
 {
     /// <summary>
     /// Изделие, изготавливаемое в магазине
     /// </summary>
-    public class ManufactureBindingModel
+    public class Manufacture
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string ManufactureName { get; set; }
         public decimal Price { get; set; }
-        public Dictionary<int, (string, int)> ManufactureComponents { get; set; }
+        public Dictionary<int, int> ManufactureComponents { get; set; }
     }
+
 }

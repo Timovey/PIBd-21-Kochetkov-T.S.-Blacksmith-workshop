@@ -24,20 +24,16 @@ namespace BlacksmithWorkshopView
         {
             try
             {
-                // продумать логику
-
-                List<ManufactureViewModel> list= _logicP.Read(null);
+                List<ManufactureViewModel> list = _logicP.Read(null);
                 if (list != null)
                 {
-                    foreach(var l in list)
-                    {
-                        
-                        comboBoxProduct.DisplayMember = "ProductName";
-                        comboBoxProduct.ValueMember = "Id";
-                        comboBoxProduct.DataSource = list;
-                        comboBoxProduct.SelectedItem = null;
-                    }
-                    
+
+                    comboBoxProduct.DisplayMember = "ProductName";
+                    comboBoxProduct.ValueMember = "Id";
+                    comboBoxProduct.DataSource = list;
+                    comboBoxProduct.SelectedItem = null;
+
+
                 }
             }
             catch (Exception ex)
@@ -95,7 +91,7 @@ namespace BlacksmithWorkshopView
             {
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
-                    ProductId = Convert.ToInt32(comboBoxProduct.SelectedValue),
+                    ManufactureId = Convert.ToInt32(comboBoxProduct.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });
