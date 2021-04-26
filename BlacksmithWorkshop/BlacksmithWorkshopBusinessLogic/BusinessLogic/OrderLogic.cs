@@ -1,5 +1,6 @@
 ﻿using BlacksmithWorkshopBusinessLogic.BindingModels;
 using BlacksmithWorkshopBusinessLogic.Enums;
+using BlacksmithWorkshopBusinessLogic.HelperModels;
 using BlacksmithWorkshopBusinessLogic.Interfaces;
 using BlacksmithWorkshopBusinessLogic.ViewModels;
 using System;
@@ -12,9 +13,12 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
     {
         private readonly object locker = new object();
         private readonly IOrderStorage _orderStorage;
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IClientStorage _clientStorage;
+
+        public OrderLogic(IOrderStorage orderStorage, IClientStorage clientStorage)
         {
             _orderStorage = orderStorage;
+            _clientStorage = clientStorage;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
@@ -39,6 +43,18 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят
             });
+
+            MailLogic.MailSendAsync(new MailSendInfo
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id =
+model.ClientId
+                })?.Email,
+                Subject = $"Новый заказ",
+                Text = $"Заказ от {DateTime.Now} на сумму {model.Sum:N2} принят."
+            });
+
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
@@ -70,6 +86,17 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                     DateImplement = order.DateImplement,
                     Status = OrderStatus.Выполняется
                 });
+
+                MailLogic.MailSendAsync(new MailSendInfo
+                {
+                    MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                    {
+                        Id =
+order.ClientId
+                    })?.Email,
+                    Subject = $"Заказ №{order.Id}",
+                    Text = $"Заказ №{order.Id} передан в работу."
+                });
             }
         }
         public void FinishOrder(ChangeStatusBindingModel model)
@@ -99,10 +126,20 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Готов
             });
+
+            MailLogic.MailSendAsync(new MailSendInfo
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id =
+order.ClientId
+                })?.Email,
+                Subject = $"Заказ №{order.Id}",
+                Text = $"Заказ №{order.Id} выполнен."
+            });
         }
         public void PayOrder(ChangeStatusBindingModel model)
         {
-            // продумать логику
             var order = _orderStorage.GetElement(new OrderBindingModel
             {
                 Id =
@@ -121,6 +158,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             {
                 Id = order.Id,
                 ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
                 ManufactureId = order.ManufactureId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -129,7 +167,15 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 Status = OrderStatus.Оплачен
 
             });
-
+            MailLogic.MailSendAsync(new MailSendInfo
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Email,
+                Subject = $"Заказ №{order.Id}",
+                Text = $"Заказ №{order.Id} оплачен."
+            });
         }
     }
 

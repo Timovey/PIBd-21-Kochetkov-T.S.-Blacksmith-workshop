@@ -4,14 +4,16 @@ using BlacksmithWorkshopDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlacksmithWorkshopDatabaseImplement.Migrations
 {
     [DbContext(typeof(BlacksmithWorkshopDatabase))]
-    partial class BlacksmithWorkshopDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20210425154617_add-message")]
+    partial class addmessage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
