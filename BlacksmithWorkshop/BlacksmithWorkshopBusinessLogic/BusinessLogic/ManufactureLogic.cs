@@ -32,7 +32,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
         {
             var element = _manufactureStorage.GetElement(new ManufactureBindingModel
             {
-                ProductName = model.ProductName
+                ManufactureName = model.ManufactureName
             });
             if (element != null && element.Id != model.Id)
             {

@@ -10,9 +10,9 @@ namespace BlacksmithWorkshopListImplements.Models
     public class Manufacture
     {
         public int Id { get; set; }
-        public string ProductName { get; set; }
+        public string ManufactureName { get; set; }
         public decimal Price { get; set; }
-        public Dictionary<int, int> ProductComponents { get; set; }
+        public Dictionary<int, int> ManufactureComponents { get; set; }
     }
 
 }

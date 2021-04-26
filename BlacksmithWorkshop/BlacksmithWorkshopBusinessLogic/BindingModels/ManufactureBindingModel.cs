@@ -10,8 +10,8 @@ namespace BlacksmithWorkshopBusinessLogic.BindingModels
     public class ManufactureBindingModel
     {
         public int? Id { get; set; }
-        public string ProductName { get; set; }
+        public string ManufactureName { get; set; }
         public decimal Price { get; set; }
-        public Dictionary<int, (string, int)> ProductComponents { get; set; }
+        public Dictionary<int, (string, int)> ManufactureComponents { get; set; }
     }
 }
