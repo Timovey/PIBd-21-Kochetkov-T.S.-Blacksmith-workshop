@@ -24,7 +24,7 @@ namespace BlacksmithWorkshopView
         {
             try
             {
-                List<ManufactureViewModel> list= _logicP.Read(null);
+                List<ManufactureViewModel> list = _logicP.Read(null);
                 if (list != null)
                 {
  
