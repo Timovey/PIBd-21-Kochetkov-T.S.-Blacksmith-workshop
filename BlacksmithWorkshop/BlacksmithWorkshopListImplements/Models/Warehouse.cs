@@ -13,7 +13,7 @@ namespace BlacksmithWorkshopListImplements.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime DateCreate { get; set; }
-        public Dictionary<int, int> WerehouseComponents { get; set; }
+        public Dictionary<int, int> WarehouseComponents { get; set; }
 
     }
 }

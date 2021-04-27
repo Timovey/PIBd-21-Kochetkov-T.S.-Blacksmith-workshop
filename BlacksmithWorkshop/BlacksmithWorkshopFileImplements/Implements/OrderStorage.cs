@@ -5,6 +5,7 @@ using BlacksmithWorkshopBusinessLogic.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlacksmithWorkshopFileImplements;
 using BlacksmithWorkshopFileImplements.Models;
 
 namespace BlacksmithWorkshopFileImplements.Implements
@@ -96,6 +97,7 @@ namespace BlacksmithWorkshopFileImplements.Implements
         }
         private OrderViewModel CreateModel(Order order)
         {
+            string manufactureName = source.Manufactures.FirstOrDefault(rec => rec.Id == order.ManufactureId)?.ManufactureName;
             return new OrderViewModel
             {
 
@@ -105,7 +107,7 @@ namespace BlacksmithWorkshopFileImplements.Implements
                 ClientId = order.ClientId,
                 ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
                 ManufactureId = order.ManufactureId,
-                ManufactureName = source.Manufactures.FirstOrDefault(rec => rec.Id == order.ManufactureId)?.ManufactureName,
+                ManufactureName = manufactureName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,

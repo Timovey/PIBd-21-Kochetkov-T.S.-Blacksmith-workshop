@@ -12,9 +12,11 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
     {
         private readonly object locker = new object();
         private readonly IOrderStorage _orderStorage;
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IWarehouseStorage _warehouseStorage;
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
+            _warehouseStorage = warehouseStorage;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
@@ -58,19 +60,27 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 {
                     throw new Exception("Заказ не в статусе \"Принят\"");
                 }
-                _orderStorage.Update(new OrderBindingModel
-                {
-                    Id = order.Id,
-                    ClientId = order.ClientId,
-                    ImplementerId = model.ImplementerId,
-                    ManufactureId = order.ManufactureId,
-                    Count = order.Count,
-                    Sum = order.Sum,
-                    DateCreate = order.DateCreate,
-                    DateImplement = order.DateImplement,
-                    Status = OrderStatus.Выполняется
-                });
+                
             }
+        }
+            
+            if (!_warehouseStorage.Extract(new ChangeWarehouseBindingModel
+            {
+                ManufactureId = order.ManufactureId,
+                Count = order.Count
+            }))
+            {
+                throw new Exception("Недостаточно компонентов на складах");
+            }
+            _orderStorage.Update(new OrderBindingModel
+            {
+                Id = order.Id,
+                ManufactureId = order.ManufactureId,
+                Count = order.Count,
+                Sum = order.Sum,
+                DateCreate = order.DateCreate,
+                Status = OrderStatus.Выполняется
+            });
         }
         public void FinishOrder(ChangeStatusBindingModel model)
         {

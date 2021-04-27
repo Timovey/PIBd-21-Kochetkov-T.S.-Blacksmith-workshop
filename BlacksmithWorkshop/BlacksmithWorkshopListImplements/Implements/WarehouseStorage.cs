@@ -98,25 +98,28 @@ namespace BlacksmithWorkshopListImplements.Implements
             }
             throw new Exception("Элемент не найден");
         }
-        
+        public bool Extract(ChangeWarehouseBindingModel model)
+        {
+            return false;
+        }
         private Warehouse CreateModel(WarehouseBindingModel model, Warehouse warehouse)
         {   
             warehouse.Name = model.Name;
             warehouse.Surname = model.Surname;
             warehouse.DateCreate = model.DateCreate;
-            warehouse.WerehouseComponents = new Dictionary<int, int>();
+            warehouse.WarehouseComponents = new Dictionary<int, int>();
 
-            foreach (var component in model.WerehouseComponents)
+            foreach (var component in model.WarehouseComponents)
             {
-                if (warehouse.WerehouseComponents.ContainsKey(component.Key))
+                if (warehouse.WarehouseComponents.ContainsKey(component.Key))
                 {
-                    warehouse.WerehouseComponents[component.Key] =
-                    model.WerehouseComponents[component.Key].Item2;
+                    warehouse.WarehouseComponents[component.Key] =
+                    model.WarehouseComponents[component.Key].Item2;
                 }
                 else
                 {
-                    warehouse.WerehouseComponents.Add(component.Key,
-                    model.WerehouseComponents[component.Key].Item2);
+                    warehouse.WarehouseComponents.Add(component.Key,
+                    model.WarehouseComponents[component.Key].Item2);
                 }
             }
 
@@ -125,7 +128,7 @@ namespace BlacksmithWorkshopListImplements.Implements
         private WarehouseViewModel CreateModel(Warehouse warehouse)
         {
             Dictionary<int, (string, int)> warehouseComponents = new Dictionary<int, (string, int)>();
-            foreach (var wc in warehouse.WerehouseComponents)
+            foreach (var wc in warehouse.WarehouseComponents)
             {
                 string componentName = string.Empty;
                 foreach (var component in source.Components)
@@ -143,7 +146,7 @@ namespace BlacksmithWorkshopListImplements.Implements
                 Id = warehouse.Id,
                 Name = warehouse.Name,
                 Surname = warehouse.Surname,
-                WerehouseComponents = warehouseComponents,
+                WarehouseComponents = warehouseComponents,
                 DateCreate = warehouse.DateCreate
             };
         }
