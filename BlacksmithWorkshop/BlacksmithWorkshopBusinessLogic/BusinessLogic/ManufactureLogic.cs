@@ -51,8 +51,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
         {
             var element = _manufactureStorage.GetElement(new ManufactureBindingModel
             {
-                Id =
-           model.Id
+                Id = model.Id
             });
             if (element == null)
             {

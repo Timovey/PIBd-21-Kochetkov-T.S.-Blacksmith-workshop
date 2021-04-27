@@ -33,7 +33,7 @@ namespace BlacksmithWorkshopListImplements.Implements
             List<ManufactureViewModel> result = new List<ManufactureViewModel>();
             foreach (var product in source.Products)
             {
-                if (product.ProductName.Contains(model.ProductName))
+                if (product.ManufactureName.Contains(model.ManufactureName))
                 {
                     result.Add(CreateModel(product));
                 }
@@ -48,8 +48,8 @@ namespace BlacksmithWorkshopListImplements.Implements
             }
             foreach (var product in source.Products)
             {
-                if (product.Id == model.Id || product.ProductName ==
-                model.ProductName)
+                if (product.Id == model.Id || product.ManufactureName ==
+                model.ManufactureName)
                 {
                     return CreateModel(product);
                 }
@@ -61,7 +61,7 @@ namespace BlacksmithWorkshopListImplements.Implements
             Manufacture tempProduct = new Manufacture
             {
                 Id = 1,
-                ProductComponents = new
+                ManufactureComponents = new
             Dictionary<int, int>()
             };
             foreach (var product in source.Products)
@@ -103,28 +103,28 @@ namespace BlacksmithWorkshopListImplements.Implements
         }
         private Manufacture CreateModel(ManufactureBindingModel model, Manufacture product)
         {
-            product.ProductName = model.ProductName;
+            product.ManufactureName = model.ManufactureName;
             product.Price = model.Price;
             // удаляем убранные
-            foreach (var key in product.ProductComponents.Keys.ToList())
+            foreach (var key in product.ManufactureComponents.Keys.ToList())
             {
-                if (!model.ProductComponents.ContainsKey(key))
+                if (!model.ManufactureComponents.ContainsKey(key))
                 {
-                    product.ProductComponents.Remove(key);
+                    product.ManufactureComponents.Remove(key);
                 }
             }
             // обновляем существуюущие и добавляем новые
-            foreach (var component in model.ProductComponents)
+            foreach (var component in model.ManufactureComponents)
             {
-                if (product.ProductComponents.ContainsKey(component.Key))
+                if (product.ManufactureComponents.ContainsKey(component.Key))
                 {
-                    product.ProductComponents[component.Key] =
-                    model.ProductComponents[component.Key].Item2;
+                    product.ManufactureComponents[component.Key] =
+                    model.ManufactureComponents[component.Key].Item2;
                 }
                 else
                 {
-                    product.ProductComponents.Add(component.Key,
-                    model.ProductComponents[component.Key].Item2);
+                    product.ManufactureComponents.Add(component.Key,
+                    model.ManufactureComponents[component.Key].Item2);
                 }
             }
             return product;
@@ -132,9 +132,9 @@ namespace BlacksmithWorkshopListImplements.Implements
         private ManufactureViewModel CreateModel(Manufacture product)
         {
             // требуется дополнительно получить список компонентов для изделия с названиями и их количество
-        Dictionary<int, (string, int)> productComponents = new
-        Dictionary<int, (string, int)>();
-            foreach (var pc in product.ProductComponents)
+            Dictionary<int, (string, int)> productComponents = new
+            Dictionary<int, (string, int)>();
+            foreach (var pc in product.ManufactureComponents)
             {
                 string componentName = string.Empty;
                 foreach (var component in source.Components)
@@ -150,9 +150,9 @@ namespace BlacksmithWorkshopListImplements.Implements
             return new ManufactureViewModel
             {
                 Id = product.Id,
-                ProductName = product.ProductName,
+                ManufactureName = product.ManufactureName,
                 Price = product.Price,
-                ProductComponents = productComponents
+                ManufactureComponents = productComponents
             };
         }
     }

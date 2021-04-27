@@ -28,12 +28,12 @@ namespace BlacksmithWorkshopView
                 if (list != null)
                 {
 
-                    comboBoxProduct.DisplayMember = "ProductName";
-                    comboBoxProduct.ValueMember = "Id";
-                    comboBoxProduct.DataSource = list;
-                    comboBoxProduct.SelectedItem = null;
+                        comboBoxProduct.DisplayMember = "ProductName";
+                        comboBoxProduct.ValueMember = "Id";
+                        comboBoxProduct.DataSource = list;
+                        comboBoxProduct.SelectedItem = null;
 
-
+                    
                 }
             }
             catch (Exception ex)
