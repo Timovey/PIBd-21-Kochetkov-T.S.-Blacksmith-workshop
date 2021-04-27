@@ -36,7 +36,7 @@ namespace BlacksmithWorkshopView
                     {
                         textBoxName.Text = view.Name;
                         textBoxSurname.Text = view.Surname;
-                        warehouseComponents = view.WerehouseComponents;
+                        warehouseComponents = view.WarehouseComponents;
                     }
                 }
                 catch (Exception ex)
@@ -76,7 +76,7 @@ namespace BlacksmithWorkshopView
                     Id = id,
                     Surname = textBoxSurname.Text,
                     Name = textBoxName.Text,
-                    WerehouseComponents = warehouseComponents,
+                    WarehouseComponents = warehouseComponents,
                     DateCreate = DateTime.Now
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",

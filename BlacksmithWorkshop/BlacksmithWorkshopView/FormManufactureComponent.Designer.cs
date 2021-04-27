@@ -29,81 +29,83 @@ namespace BlacksmithWorkshopView
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.labelComponent = new System.Windows.Forms.Label();
-			this.labelCount = new System.Windows.Forms.Label();
-			this.comboBoxComponent = new System.Windows.Forms.ComboBox();
-			this.textBoxCount = new System.Windows.Forms.TextBox();
-			this.buttonSave = new System.Windows.Forms.Button();
-			this.buttonCancel = new System.Windows.Forms.Button();
-			this.SuspendLayout();
-			// 
-			// labelComponent
-			// 
-			this.labelComponent.AutoSize = true;
-			this.labelComponent.Location = new System.Drawing.Point(30, 49);
-			this.labelComponent.Name = "labelComponent";
-			this.labelComponent.Size = new System.Drawing.Size(63, 13);
-			this.labelComponent.TabIndex = 0;
-			this.labelComponent.Text = "Компонент";
-			// 
-			// labelCount
-			// 
-			this.labelCount.AutoSize = true;
-			this.labelCount.Location = new System.Drawing.Point(30, 91);
-			this.labelCount.Name = "labelCount";
-			this.labelCount.Size = new System.Drawing.Size(66, 13);
-			this.labelCount.TabIndex = 1;
-			this.labelCount.Text = "Количество";
-			// 
-			// comboBoxComponent
-			// 
-			this.comboBoxComponent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBoxComponent.FormattingEnabled = true;
-			this.comboBoxComponent.Location = new System.Drawing.Point(127, 46);
-			this.comboBoxComponent.Name = "comboBoxComponent";
-			this.comboBoxComponent.Size = new System.Drawing.Size(188, 21);
-			this.comboBoxComponent.TabIndex = 2;
-			// 
-			// textBoxCount
-			// 
-			this.textBoxCount.Location = new System.Drawing.Point(127, 88);
-			this.textBoxCount.Name = "textBoxCount";
-			this.textBoxCount.Size = new System.Drawing.Size(179, 20);
-			this.textBoxCount.TabIndex = 3;
-			// 
-			// buttonSave
-			// 
-			this.buttonSave.Location = new System.Drawing.Point(33, 143);
-			this.buttonSave.Name = "buttonSave";
-			this.buttonSave.Size = new System.Drawing.Size(104, 23);
-			this.buttonSave.TabIndex = 5;
-			this.buttonSave.Text = "сохранить";
-			this.buttonSave.UseVisualStyleBackColor = true;
-			// 
-			// buttonCancel
-			// 
-			this.buttonCancel.Location = new System.Drawing.Point(192, 143);
-			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(114, 23);
-			this.buttonCancel.TabIndex = 6;
-			this.buttonCancel.Text = "Отмена";
-			this.buttonCancel.UseVisualStyleBackColor = true;
-			// 
-			// FormManufactureComponent
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(455, 237);
-			this.Controls.Add(this.buttonCancel);
-			this.Controls.Add(this.buttonSave);
-			this.Controls.Add(this.textBoxCount);
-			this.Controls.Add(this.comboBoxComponent);
-			this.Controls.Add(this.labelCount);
-			this.Controls.Add(this.labelComponent);
-			this.Name = "FormManufactureComponent";
-			this.Text = "FormManufactureComponent";
-			this.ResumeLayout(false);
-			this.PerformLayout();
+            this.labelComponent = new System.Windows.Forms.Label();
+            this.labelCount = new System.Windows.Forms.Label();
+            this.comboBoxComponent = new System.Windows.Forms.ComboBox();
+            this.textBoxCount = new System.Windows.Forms.TextBox();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // labelComponent
+            // 
+            this.labelComponent.AutoSize = true;
+            this.labelComponent.Location = new System.Drawing.Point(30, 49);
+            this.labelComponent.Name = "labelComponent";
+            this.labelComponent.Size = new System.Drawing.Size(63, 13);
+            this.labelComponent.TabIndex = 0;
+            this.labelComponent.Text = "Компонент";
+            // 
+            // labelCount
+            // 
+            this.labelCount.AutoSize = true;
+            this.labelCount.Location = new System.Drawing.Point(30, 91);
+            this.labelCount.Name = "labelCount";
+            this.labelCount.Size = new System.Drawing.Size(66, 13);
+            this.labelCount.TabIndex = 1;
+            this.labelCount.Text = "Количество";
+            // 
+            // comboBoxComponent
+            // 
+            this.comboBoxComponent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxComponent.FormattingEnabled = true;
+            this.comboBoxComponent.Location = new System.Drawing.Point(127, 46);
+            this.comboBoxComponent.Name = "comboBoxComponent";
+            this.comboBoxComponent.Size = new System.Drawing.Size(188, 21);
+            this.comboBoxComponent.TabIndex = 2;
+            // 
+            // textBoxCount
+            // 
+            this.textBoxCount.Location = new System.Drawing.Point(127, 88);
+            this.textBoxCount.Name = "textBoxCount";
+            this.textBoxCount.Size = new System.Drawing.Size(179, 20);
+            this.textBoxCount.TabIndex = 3;
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(33, 143);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(104, 23);
+            this.buttonSave.TabIndex = 5;
+            this.buttonSave.Text = "сохранить";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(192, 143);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(114, 23);
+            this.buttonCancel.TabIndex = 6;
+            this.buttonCancel.Text = "Отмена";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
+            // 
+            // FormManufactureComponent
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(455, 237);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.textBoxCount);
+            this.Controls.Add(this.comboBoxComponent);
+            this.Controls.Add(this.labelCount);
+            this.Controls.Add(this.labelComponent);
+            this.Name = "FormManufactureComponent";
+            this.Text = "Привязка компонента";
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 

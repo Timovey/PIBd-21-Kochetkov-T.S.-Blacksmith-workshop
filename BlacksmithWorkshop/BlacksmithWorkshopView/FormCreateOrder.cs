@@ -28,7 +28,7 @@ namespace BlacksmithWorkshopView
                 if (list != null)
                 {
 
-                        comboBoxProduct.DisplayMember = "ProductName";
+                        comboBoxProduct.DisplayMember = "ManufactureName";
                         comboBoxProduct.ValueMember = "Id";
                         comboBoxProduct.DataSource = list;
                         comboBoxProduct.SelectedItem = null;

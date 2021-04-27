@@ -188,6 +188,10 @@
       <Project>{9b790000-a18b-4800-ab60-10712dd0e055}</Project>
       <Name>BlacksmithWorkshopFileImplements</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BlacksmithWorkshopListImplements\BlacksmithWorkshopListImplements.csproj">
+      <Project>{acbadd42-74cd-48b4-856e-51866875306c}</Project>
+      <Name>BlacksmithWorkshopListImplements</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
