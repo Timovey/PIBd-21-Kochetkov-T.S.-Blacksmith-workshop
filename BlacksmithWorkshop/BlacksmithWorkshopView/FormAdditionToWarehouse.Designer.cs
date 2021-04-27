@@ -124,7 +124,7 @@
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.labelWarehouse);
             this.Name = "FormAdditionToWarehouse";
-            this.Text = "Пополнение склада";
+            this.Text = "FormAdditionToWarehouse";
             this.Load += new System.EventHandler(this.FormWarehouse_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

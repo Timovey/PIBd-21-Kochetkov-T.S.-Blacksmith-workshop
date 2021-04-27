@@ -13,5 +13,6 @@ namespace BlacksmithWorkshopBusinessLogic.Interfaces
         void Insert(WarehouseBindingModel model);
         void Update(WarehouseBindingModel model);
         void Delete(WarehouseBindingModel model);
+        void Reffil(AddToWarehouseBindingModel model);
     }
 }
