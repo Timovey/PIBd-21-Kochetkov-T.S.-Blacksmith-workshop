@@ -98,7 +98,44 @@ namespace BlacksmithWorkshopListImplements.Implements
             }
             throw new Exception("Элемент не найден");
         }
-        
+        public void Reffil(AddToWarehouseBindingModel model)
+        {
+            Component tempComponent = null;
+            foreach(var component in source.Components)
+            {
+                if(component.Id == model.ComponentId)
+                {
+                    tempComponent = component;
+                }
+            }
+            if(tempComponent == null)
+            {
+                throw new Exception("Компонент не найден");
+            }
+            Warehouse warehouse = null;
+            foreach(var wh in source.Warehouses)
+            {
+                if(model.WarehouseId == wh.Id)
+                {
+                    warehouse = wh;
+                }
+            }
+            if (tempComponent == null)
+            {
+                throw new Exception("Склад не найден");
+            }
+
+            if(warehouse.WerehouseComponents.ContainsKey(model.ComponentId))
+            {
+                warehouse.WerehouseComponents[model.ComponentId] =
+                    warehouse.WerehouseComponents[model.ComponentId] +
+                    model.Count;
+            }
+            else
+            {
+                warehouse.WerehouseComponents.Add(model.ComponentId, model.Count);
+            }
+        }
         private Warehouse CreateModel(WarehouseBindingModel model, Warehouse warehouse)
         {   
             warehouse.Name = model.Name;
