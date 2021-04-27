@@ -29,7 +29,6 @@ namespace BlacksmithWorkshopView
         {
             try
             {
-                // продумать логику
                 var list = _orderLogic.Read(null);
                 if (list != null)
                 {
@@ -122,5 +121,18 @@ namespace BlacksmithWorkshopView
         {
             LoadData();
         }
+
+        private void складыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormWarehouses>();
+            form.ShowDialog();
+        }
+
+        private void пополнениеСкладаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormAdditionToWarehouse>();
+            form.ShowDialog();
+        }
+
     }
 }

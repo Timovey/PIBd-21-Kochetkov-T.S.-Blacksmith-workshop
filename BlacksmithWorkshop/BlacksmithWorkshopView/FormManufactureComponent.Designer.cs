@@ -79,7 +79,6 @@ namespace BlacksmithWorkshopView
 			this.buttonSave.TabIndex = 5;
 			this.buttonSave.Text = "сохранить";
 			this.buttonSave.UseVisualStyleBackColor = true;
-			this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
 			// 
 			// buttonCancel
 			// 
@@ -89,7 +88,6 @@ namespace BlacksmithWorkshopView
 			this.buttonCancel.TabIndex = 6;
 			this.buttonCancel.Text = "Отмена";
 			this.buttonCancel.UseVisualStyleBackColor = true;
-			this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
 			// 
 			// FormManufactureComponent
 			// 

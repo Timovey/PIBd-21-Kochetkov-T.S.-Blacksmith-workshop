@@ -1,7 +1,7 @@
 ﻿using System;
 using BlacksmithWorkshopBusinessLogic.Enums;
 
-namespace BlacksmithWorkshopListImplements.Models
+namespace BlacksmithWorkshopFileImplements.Models
 {
     /// <summary>
     /// Заказ
