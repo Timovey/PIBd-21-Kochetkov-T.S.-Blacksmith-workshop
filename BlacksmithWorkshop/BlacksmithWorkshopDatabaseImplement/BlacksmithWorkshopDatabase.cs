@@ -9,7 +9,7 @@ namespace BlacksmithWorkshopDatabaseImplement
 		{
 			if (optionsBuilder.IsConfigured == false)
 			{
-				optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;initial catalog='BlacksmithWorkshopDatabase';Integrated Security=True;MultipleActiveResultSets=True;");
+				optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;initial catalog='BlacksmithWorkshopDatabaseDop';Integrated Security=True;MultipleActiveResultSets=True;");
 			}
 			base.OnConfiguring(optionsBuilder);
 		}
@@ -21,4 +21,7 @@ namespace BlacksmithWorkshopDatabaseImplement
         public virtual DbSet<Implementer> Implementers { set; get; }
         public virtual DbSet<MessageInfo> MessageInfos { set; get; }
     }
+		public virtual DbSet<Warehouse> Warehouses { set; get; }
+		public virtual DbSet<WarehouseComponent> WarehouseComponents { set; get; }
+	}
 }
