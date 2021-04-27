@@ -14,11 +14,12 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
         private readonly object locker = new object();
         private readonly IOrderStorage _orderStorage;
         private readonly IClientStorage _clientStorage;
-
-        public OrderLogic(IOrderStorage orderStorage, IClientStorage clientStorage)
+        private readonly IWarehouseStorage _warehouseStorage;
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage, IClientStorage clientStorage)
         {
             _orderStorage = orderStorage;
             _clientStorage = clientStorage;
+            _warehouseStorage = warehouseStorage;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {

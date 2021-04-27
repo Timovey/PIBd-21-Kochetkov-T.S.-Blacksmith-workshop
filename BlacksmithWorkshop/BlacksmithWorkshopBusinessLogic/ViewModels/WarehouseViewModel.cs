@@ -13,6 +13,6 @@ namespace BlacksmithWorkshopBusinessLogic.ViewModels
         public string Surname { get; set; }
         [DisplayName("Дата создания")]
         public DateTime DateCreate { get; set; }
-        public Dictionary<int, (string, int)> WerehouseComponents { get; set; }
+        public Dictionary<int, (string, int)> WarehouseComponents { get; set; }
     }
 }

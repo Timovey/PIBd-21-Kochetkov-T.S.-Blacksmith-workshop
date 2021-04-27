@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlacksmithWorkshopBusinessLogic.BindingModels
+namespace BlacksmithWorkshopFileImplements.Models
 {
-
     /// <summary>
     /// склад для храниния компонент
     /// </summary>
-    public class WarehouseBindingModel
+    public class Warehouse
     {
-        public int? Id { get; set; } 
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime DateCreate { get; set; }
-        public Dictionary<int, (string, int)> WarehouseComponents { get; set; }
+        public Dictionary<int, int> WarehouseComponents { get; set; }
 
     }
 }

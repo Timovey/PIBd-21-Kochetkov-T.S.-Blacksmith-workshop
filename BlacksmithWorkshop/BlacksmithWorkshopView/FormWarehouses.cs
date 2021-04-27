@@ -52,7 +52,7 @@ DataGridViewAutoSizeColumnMode.Fill;
                         })?[0];
                     if(listComp != null)
                     {
-                        foreach (var lc in listComp.WerehouseComponents)
+                        foreach (var lc in listComp.WarehouseComponents)
                         {
                             dataGridViewComponents.Rows.Add(new object[] {
                            lc.Key, lc.Value.Item1, lc.Value.Item2
@@ -83,7 +83,7 @@ DataGridViewAutoSizeColumnMode.Fill;
                 })?[0];
                 if (listComp != null)
                 {
-                    foreach (var lc in listComp.WerehouseComponents)
+                    foreach (var lc in listComp.WarehouseComponents)
                     {
                         dataGridViewComponents.Rows.Add(new object[] {
                            lc.Key, lc.Value.Item1, lc.Value.Item2

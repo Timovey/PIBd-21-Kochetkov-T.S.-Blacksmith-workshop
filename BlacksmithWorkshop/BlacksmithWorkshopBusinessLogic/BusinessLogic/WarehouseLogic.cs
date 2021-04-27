@@ -69,10 +69,10 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             {
                 throw new Exception("Склад не найден");
             }
-            if(element.WerehouseComponents.ContainsKey(model.ComponentId))
+            if(element.WarehouseComponents.ContainsKey(model.ComponentId))
             {
-                element.WerehouseComponents[model.ComponentId] = (element.WerehouseComponents[model.ComponentId].Item1, 
-                    element.WerehouseComponents[model.ComponentId].Item2 + model.Count);
+                element.WarehouseComponents[model.ComponentId] = (element.WarehouseComponents[model.ComponentId].Item1, 
+                    element.WarehouseComponents[model.ComponentId].Item2 + model.Count);
             }
             else
             {
@@ -84,7 +84,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 {
                     throw new Exception("Компонент не найден");
                 }
-                element.WerehouseComponents.Add(component.Id, (component.ComponentName, model.Count));
+                element.WarehouseComponents.Add(component.Id, (component.ComponentName, model.Count));
             }
             _warehouseStorage.Update(new WarehouseBindingModel
             {
@@ -92,7 +92,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 Name = element.Name,
                 Surname = element.Surname,
                 DateCreate = element.DateCreate,
-                WerehouseComponents = element.WerehouseComponents
+                WarehouseComponents = element.WarehouseComponents
             });
 
         }
