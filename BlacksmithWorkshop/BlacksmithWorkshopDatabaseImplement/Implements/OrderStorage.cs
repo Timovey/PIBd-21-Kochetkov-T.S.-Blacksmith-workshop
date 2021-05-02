@@ -14,12 +14,12 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
         {
             using (var context = new BlacksmithWorkshopDatabase())
             {
-                return context.Orders
+                return context.Orders.Include(rec => rec.Manufacture)
                .Select(rec => new OrderViewModel
                {
                    Id = rec.Id,
                    ManufactureId = rec.Manufacture.Id,
-                   ManufactureName = context.Manufactures.Include(man => man.Orders).FirstOrDefault(man => man.Id == rec.Id).ManufactureName,
+                   ManufactureName = rec.Manufacture.ManufactureName,
                    Count = rec.Count,
                    Sum = rec.Sum,
                    Status = rec.Status,
@@ -37,13 +37,13 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
             }
             using (var context = new BlacksmithWorkshopDatabase())
             {
-                return context.Orders
+                return context.Orders.Include(rec => rec.Manufacture)
               .Where(rec => rec.Manufacture.Id == model.ManufactureId && rec.Count == model.Count)
                .Select(rec => new OrderViewModel
                {
                    Id = rec.Id,
                    ManufactureId = rec.Manufacture.Id,
-                   ManufactureName = context.Manufactures.Include(man => man.Orders).FirstOrDefault(man => man.Id == rec.Id).ManufactureName,
+                   ManufactureName = rec.Manufacture.ManufactureName,
                    Count = rec.Count,
                    Sum = rec.Sum,
                    Status = rec.Status,
@@ -61,14 +61,14 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
             }
             using (var context = new BlacksmithWorkshopDatabase())
             {
-                var order = context.Orders
+                var order = context.Orders.Include(rec => rec.Manufacture)
                 .FirstOrDefault(rec => rec.Id == model.Id || rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
                 {
                     Id = order.Id,
                     ManufactureId = order.ManufactureId,
-                    ManufactureName = context.Manufactures.FirstOrDefault(man => man.Id == order.ManufactureId)?.ManufactureName,
+                    ManufactureName = order.Manufacture?.ManufactureName,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
@@ -81,7 +81,16 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
         {
             using (var context = new BlacksmithWorkshopDatabase())
             {
-                context.Orders.Add(CreateModel(model, new Order()));
+                Order order = new Order
+                {
+                    ManufactureId = model.ManufactureId,
+                    Count = model.Count,
+                    Sum = model.Sum,
+                    Status = model.Status,
+                    DateCreate = model.DateCreate,
+                    DateImplement = model.DateImplement 
+                };
+                context.Orders.Add(order);
                 context.SaveChanges();
             }
         }
@@ -92,9 +101,14 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
                 var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
-                    throw new Exception("Element not found");
+                    throw new Exception("Элемент не найден");
                 }
-                CreateModel(model, element);
+                element.ManufactureId = model.ManufactureId;
+                element.Count = model.Count;
+                element.Sum = model.Sum;
+                element.Status = model.Status;
+                element.DateCreate = model.DateCreate;
+                element.DateImplement = model.DateImplement;
                 context.SaveChanges();
             }
         }
@@ -110,37 +124,10 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Element not found");
+                    throw new Exception("Элемент не найден");
                 }
             }
         }
-        private Order CreateModel(OrderBindingModel model, Order order)
-        {
-            order.ManufactureId = model.ManufactureId;
-            order.Count = model.Count;
-            order.Status = model.Status;
-            order.Sum = model.Sum;
-            order.DateCreate = model.DateCreate;
-            order.DateImplement = model.DateImplement;
-
-            return order;
-        }
-        private OrderViewModel CreateModel(Order order)
-        {
-            using (var context = new BlacksmithWorkshopDatabase())
-            {
-                return new OrderViewModel
-                {
-                    Id = order.Id,
-                    ManufactureId = order.ManufactureId,
-                    ManufactureName = context.Manufactures.FirstOrDefault(man => man.Id == order.ManufactureId)?.ManufactureName,
-                    Count = order.Count,
-                    Sum = order.Sum,
-                    Status = order.Status,
-                    DateCreate = order.DateCreate,
-                    DateImplement = order?.DateImplement
-                };
-            }
-        }
+        
     }
 }
