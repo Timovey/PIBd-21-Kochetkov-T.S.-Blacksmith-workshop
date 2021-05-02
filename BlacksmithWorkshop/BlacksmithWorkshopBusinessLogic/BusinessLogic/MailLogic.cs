@@ -104,7 +104,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             {
                 return;
             }
-            if (info.Storage == null)
+            if (info.Storage == null || info.ClientStorage == null)
             {
                 return;
             }
@@ -124,6 +124,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                             {
                                 info.Storage.Insert(new MessageInfoBindingModel
                                 {
+                                    ClientId = info.ClientStorage.GetElement(new ClientBindingModel { Email = mail.Address })?.Id,
                                     DateDelivery = message.Date.DateTime,
                                     MessageId = message.MessageId,
                                     FromMailAddress = mail.Address,
