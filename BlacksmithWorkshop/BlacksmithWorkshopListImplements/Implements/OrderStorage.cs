@@ -33,7 +33,7 @@ namespace BlacksmithWorkshopListImplements.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (order.ProductId == model.ProductId && order.Count == model.Count)
+                if (order.ProductId == model.ManufactureId && order.Count == model.Count)
                 {
                     result.Add(CreateModel(order));
                 }
@@ -49,7 +49,7 @@ namespace BlacksmithWorkshopListImplements.Implements
             foreach (var order in source.Orders)
             {
                 if (order.Id == model.Id || (order.ProductId ==
-               model.ProductId && order.Count == model.Count))
+               model.ManufactureId && order.Count == model.Count))
                 {
                     return CreateModel(order);
                 }
@@ -98,7 +98,7 @@ namespace BlacksmithWorkshopListImplements.Implements
         }
         private Order CreateModel(OrderBindingModel model, Order order)
         {
-            order.ProductId = model.ProductId;
+            order.ProductId = model.ManufactureId;
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -113,14 +113,14 @@ namespace BlacksmithWorkshopListImplements.Implements
             {
                 if(pr.Id == component.ProductId)
                 {
-                    productName = pr.ProductName;
+                    productName = pr.ManufactureName;
                 }
             }
             return new OrderViewModel
             {
                 Id = component.Id,
-                ProductId = component.ProductId,
-                ProductName = productName,
+                ManufactureId = component.ProductId,
+                ManufactureName = productName,
                 Count = component.Count,
                 Sum = component.Sum,
                 Status = component.Status,

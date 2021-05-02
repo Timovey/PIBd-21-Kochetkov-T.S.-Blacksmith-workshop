@@ -7,7 +7,7 @@ using Unity;
 
 namespace BlacksmithWorkshopView
 {
-    public partial class FormProductComponent : Form
+    public partial class FormManufactureComponent : Form
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
@@ -25,7 +25,7 @@ namespace BlacksmithWorkshopView
                 textBoxCount.Text = value.ToString();
             }
         }
-        public FormProductComponent(ComponentLogic logic)
+        public FormManufactureComponent(ComponentLogic logic)
         {
             InitializeComponent();
             List<ComponentViewModel> list = logic.Read(null);

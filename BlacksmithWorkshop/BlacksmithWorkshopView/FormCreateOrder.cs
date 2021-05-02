@@ -27,12 +27,12 @@ namespace BlacksmithWorkshopView
                 List<ManufactureViewModel> list = _logicP.Read(null);
                 if (list != null)
                 {
- 
-                        comboBoxProduct.DisplayMember = "ProductName";
+
+                        comboBoxProduct.DisplayMember = "ManufactureName";
                         comboBoxProduct.ValueMember = "Id";
                         comboBoxProduct.DataSource = list;
                         comboBoxProduct.SelectedItem = null;
-                    
+
                     
                 }
             }

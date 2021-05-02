@@ -91,17 +91,17 @@
     <Compile Include="FormManufacture.Designer.cs">
       <DependentUpon>FormManufacture.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormManufactureComponent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormManufactureComponent.Designer.cs">
+      <DependentUpon>FormManufactureComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormManufactures.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormManufactures.Designer.cs">
       <DependentUpon>FormManufactures.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormProductComponent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormProductComponent.Designer.cs">
-      <DependentUpon>FormProductComponent.cs</DependentUpon>
     </Compile>
     <Compile Include="FormWarehouse.cs">
       <SubType>Form</SubType>
@@ -135,11 +135,11 @@
     <EmbeddedResource Include="FormManufacture.resx">
       <DependentUpon>FormManufacture.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormManufactureComponent.resx">
+      <DependentUpon>FormManufactureComponent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormManufactures.resx">
       <DependentUpon>FormManufactures.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormProductComponent.resx">
-      <DependentUpon>FormProductComponent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormWarehouse.resx">
       <DependentUpon>FormWarehouse.cs</DependentUpon>
@@ -174,6 +174,10 @@
     <ProjectReference Include="..\BlacksmithWorkshopBusinessLogic\BlacksmithWorkshopBusinessLogic.csproj">
       <Project>{cbcd9d7c-4c52-4bf8-8b2e-d6635939bdf7}</Project>
       <Name>BlacksmithWorkshopBusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlacksmithWorkshopFileImplements\BlacksmithWorkshopFileImplements.csproj">
+      <Project>{9b790000-a18b-4800-ab60-10712dd0e055}</Project>
+      <Name>BlacksmithWorkshopFileImplements</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlacksmithWorkshopListImplements\BlacksmithWorkshopListImplements.csproj">
       <Project>{acbadd42-74cd-48b4-856e-51866875306c}</Project>

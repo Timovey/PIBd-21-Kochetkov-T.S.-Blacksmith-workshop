@@ -11,9 +11,9 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
     {
         private readonly IManufactureStorage _manufactureStorage;
 
-        public ManufactureLogic(IManufactureStorage productStorage)
+        public ManufactureLogic(IManufactureStorage manufactureStorage)
         {
-            _manufactureStorage = productStorage;
+            _manufactureStorage = manufactureStorage;
         }
         public List<ManufactureViewModel> Read(ManufactureBindingModel model)
         {

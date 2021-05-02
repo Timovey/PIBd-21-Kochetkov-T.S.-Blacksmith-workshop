@@ -10,9 +10,11 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
     public class OrderLogic
     {
         private readonly IOrderStorage _orderStorage;
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IWarehouseStorage _warehouseStorage;
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
+            _warehouseStorage = warehouseStorage;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
@@ -52,10 +54,18 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
+            if (!_warehouseStorage.Extract(new ChangeWarehouseBindingModel
+            {
+                ManufactureId = order.ManufactureId,
+                Count = order.Count
+            }))
+            {
+                throw new Exception("Недостаточно компонентов на складах");
+            }
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
-                ManufactureId = order.ProductId,
+                ManufactureId = order.ManufactureId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
@@ -80,7 +90,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
-                ManufactureId = order.ProductId,
+                ManufactureId = order.ManufactureId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
@@ -108,7 +118,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
-                ManufactureId = order.ProductId,
+                ManufactureId = order.ManufactureId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
