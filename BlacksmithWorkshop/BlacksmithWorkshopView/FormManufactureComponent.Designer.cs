@@ -103,7 +103,7 @@ namespace BlacksmithWorkshopView
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.labelComponent);
             this.Name = "FormManufactureComponent";
-            this.Text = "Привязка компонента";
+            this.Text = "FormManufactureComponent";
             this.ResumeLayout(false);
             this.PerformLayout();
 

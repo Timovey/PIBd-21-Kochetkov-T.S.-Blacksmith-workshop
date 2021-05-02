@@ -133,7 +133,7 @@ namespace BlacksmithWorkshopListImplements.Implements
         {
             // требуется дополнительно получить список компонентов для изделия с названиями и их количество
             Dictionary<int, (string, int)> productComponents = new
-            Dictionary<int, (string, int)>();
+             Dictionary<int, (string, int)>();
             foreach (var pc in product.ManufactureComponents)
             {
                 string componentName = string.Empty;

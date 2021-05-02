@@ -33,7 +33,7 @@ namespace BlacksmithWorkshopListImplements.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (order.ProductId == model.ManufactureId && order.Count == model.Count)
+                if (order.ManufactureId == model.ManufactureId && order.Count == model.Count)
                 {
                     result.Add(CreateModel(order));
                 }
@@ -48,7 +48,7 @@ namespace BlacksmithWorkshopListImplements.Implements
             }
             foreach (var order in source.Orders)
             {
-                if (order.Id == model.Id || (order.ProductId ==
+                if (order.Id == model.Id || (order.ManufactureId ==
                model.ManufactureId && order.Count == model.Count))
                 {
                     return CreateModel(order);
@@ -98,7 +98,7 @@ namespace BlacksmithWorkshopListImplements.Implements
         }
         private Order CreateModel(OrderBindingModel model, Order order)
         {
-            order.ProductId = model.ManufactureId;
+            order.ManufactureId = model.ManufactureId;
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -111,7 +111,7 @@ namespace BlacksmithWorkshopListImplements.Implements
             String productName = null;
             foreach(var pr in source.Products)
             {
-                if(pr.Id == component.ProductId)
+                if(pr.Id == component.ManufactureId)
                 {
                     productName = pr.ManufactureName;
                 }
@@ -119,7 +119,7 @@ namespace BlacksmithWorkshopListImplements.Implements
             return new OrderViewModel
             {
                 Id = component.Id,
-                ManufactureId = component.ProductId,
+                ManufactureId = component.ManufactureId,
                 ManufactureName = productName,
                 Count = component.Count,
                 Sum = component.Sum,
