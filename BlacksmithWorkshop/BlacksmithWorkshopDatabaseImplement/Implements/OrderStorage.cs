@@ -38,7 +38,7 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
             using (var context = new BlacksmithWorkshopDatabase())
             {
                 return context.Orders.Include(rec => rec.Manufacture)
-              .Where(rec => rec.Manufacture.Id == model.ManufactureId && rec.Count == model.Count)
+              .Where(rec => rec.Manufacture.Id == model.ManufactureId && rec.Count == model.Count || (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
                .Select(rec => new OrderViewModel
                {
                    Id = rec.Id,

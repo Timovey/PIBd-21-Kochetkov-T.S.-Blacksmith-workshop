@@ -167,15 +167,31 @@ namespace BlacksmithWorkshopView
             }
         }
 
-        private void пополнениеСкладаToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormAdditionToWarehouse>();
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    report.SaveWarehousesToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+
+                    MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void компонентыПоСкладамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportWarehouseComponents>();
             form.ShowDialog();
         }
 
-        private void складыToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void списокЗаказовПоДатамToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormWarehouses>();
+            var form = Container.Resolve<FormReportOrderByDate>();
             form.ShowDialog();
         }
     }
