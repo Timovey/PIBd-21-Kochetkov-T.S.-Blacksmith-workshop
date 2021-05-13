@@ -26,8 +26,10 @@ namespace BlacksmithWorkshopRestApi
         {
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
+            services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<IManufactureStorage, ManufactureStorage>();
             services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
+            services.AddTransient<IWarehouseStorage, WarehouseStorage>();
             services.AddTransient<OrderLogic>();
             services.AddTransient<ClientLogic>();
             services.AddTransient<ManufactureLogic>();
@@ -39,6 +41,7 @@ namespace BlacksmithWorkshopRestApi
                 MailLogin = "lab7using@gmail.com",
                 MailPassword = "321ewq#@!",
             });
+            services.AddTransient<WarehouseLogic>();
             services.AddControllers().AddNewtonsoftJson();
         }
 
