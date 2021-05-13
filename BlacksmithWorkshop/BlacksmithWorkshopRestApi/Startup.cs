@@ -25,10 +25,13 @@ namespace BlacksmithWorkshopRestApi
         {
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
+            services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<IManufactureStorage, ManufactureStorage>();
+            services.AddTransient<IWarehouseStorage, WarehouseStorage>();
             services.AddTransient<OrderLogic>();
             services.AddTransient<ClientLogic>();
             services.AddTransient<ManufactureLogic>();
+            services.AddTransient<WarehouseLogic>();
             services.AddControllers().AddNewtonsoftJson();
         }
 
