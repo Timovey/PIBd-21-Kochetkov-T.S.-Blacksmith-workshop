@@ -1,5 +1,5 @@
 ﻿using BlacksmithWorkshopBusinessLogic.Enums;
-using BlacksmithWorkshopListImplements.Models;
+using BlacksmithWorkshopFileImplements.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace BlacksmithWorkshopListImplements
+namespace BlacksmithWorkshopFileImplements
 {
     public class FileDataListSingleton
     {
@@ -15,14 +15,17 @@ namespace BlacksmithWorkshopListImplements
         private readonly string ComponentFileName = "Component.xml";
         private readonly string OrderFileName = "Order.xml";
         private readonly string ManufactureFileName = "Manufacture.xml";
+        private readonly string WarehouseFileName = "Warehouse.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Manufacture> Manufactures { get; set; }
+        public List<Warehouse> Warehouses { get; set; }
         private FileDataListSingleton()
         {
             Components = LoadComponents();
             Orders = LoadOrders();
             Manufactures = LoadManufactures();
+            Warehouses = LoadWarehouses(); 
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -37,6 +40,7 @@ namespace BlacksmithWorkshopListImplements
             SaveComponents();
             SaveOrders();
             SaveManufactures();
+            SaveWarehouses();
         }
         private List<Component> LoadComponents()
         {
@@ -114,7 +118,7 @@ namespace BlacksmithWorkshopListImplements
                 {
                     var prodComp = new Dictionary<int, int>();
                     foreach (var component in
-                   elem.Element("ManufactureComponents").Elements("ManufactureComponent").ToList())
+                    elem.Element("ManufactureComponents").Elements("ManufactureComponent").ToList())
                     {
                         prodComp.Add(Convert.ToInt32(component.Element("Key").Value),
                        Convert.ToInt32(component.Element("Value").Value));
@@ -125,6 +129,37 @@ namespace BlacksmithWorkshopListImplements
                         ManufactureName = elem.Element("ManufactureName").Value,
                         Price = Convert.ToDecimal(elem.Element("Price").Value),
                         ManufactureComponents = prodComp
+                    });
+                }
+            }
+            return list;
+        }
+
+        private List<Warehouse> LoadWarehouses()
+        {
+
+            var list = new List<Warehouse>();
+            if (File.Exists(WarehouseFileName))
+            {
+                XDocument xDocument = XDocument.Load(WarehouseFileName);
+                var xElements = xDocument.Root.Elements("Warehouse").ToList();
+                foreach (var elem in xElements)
+                {
+                    var warComp = new Dictionary<int, int>();
+                    foreach (var component in
+                    elem.Element("WarehouseComponents").Elements("WarehouseComponent").ToList())
+                    {
+                        warComp.Add(Convert.ToInt32(component.Element("Key").Value),
+                       Convert.ToInt32(component.Element("Value").Value));
+                    }
+
+                    list.Add(new Warehouse
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        Name = elem.Element("Name").Value,
+                        Surname = elem.Element("Surname").Value,
+                        DateCreate = Convert.ToDateTime(elem.Element("DataCreate").Value),
+                        WarehouseComponents = warComp
                     });
                 }
             }
@@ -191,6 +226,32 @@ namespace BlacksmithWorkshopListImplements
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ManufactureFileName);
+            }
+        }
+
+        private void SaveWarehouses()
+        {
+            if (Warehouses != null)
+            {
+                var xElement = new XElement("Warehouses");
+                foreach (var warehouse in Warehouses)
+                {
+                    var compElement = new XElement("WarehouseComponents");
+                    foreach (var component in warehouse.WarehouseComponents)
+                    {
+                        compElement.Add(new XElement("WarehouseComponent",
+                        new XElement("Key", component.Key),
+                        new XElement("Value", component.Value)));
+                    }
+                    xElement.Add(new XElement("Warehouse",
+                     new XAttribute("Id", warehouse.Id),
+                     new XElement("Name", warehouse.Name),
+                     new XElement("DataCreate", warehouse.DateCreate),
+                     new XElement("Surname", warehouse.Surname),
+                     compElement));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(WarehouseFileName);
             }
         }
     }

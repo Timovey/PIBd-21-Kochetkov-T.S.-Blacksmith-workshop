@@ -4,8 +4,8 @@ using BlacksmithWorkshopBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BlacksmithWorkshopListImplements;
-using BlacksmithWorkshopListImplements.Models;
+using BlacksmithWorkshopFileImplements;
+using BlacksmithWorkshopFileImplements.Models;
 
 namespace BlacksmithWorkshopFileImplements.Implements
 {
@@ -89,11 +89,13 @@ namespace BlacksmithWorkshopFileImplements.Implements
         }
         private OrderViewModel CreateModel(Order order)
         {
+            string manufactureName = source.Manufactures.FirstOrDefault(rec => rec.Id == order.ManufactureId)?.ManufactureName;
             return new OrderViewModel
             {
 
                 Id = order.Id,
                 ManufactureId = order.ManufactureId,
+                ManufactureName = manufactureName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,

@@ -181,6 +181,12 @@
     <Compile Include="FormClientOrders.Designer.cs">
       <DependentUpon>FormClientOrders.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAdditionToWarehouse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAdditionToWarehouse.Designer.cs">
+      <DependentUpon>FormAdditionToWarehouse.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormComponent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,8 +235,23 @@
     <Compile Include="FormReportProductComponents.Designer.cs">
       <DependentUpon>FormReportProductComponents.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormWarehouse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWarehouse.Designer.cs">
+      <DependentUpon>FormWarehouse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWarehouses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWarehouses.Designer.cs">
+      <DependentUpon>FormWarehouses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormAdditionToWarehouse.resx">
+      <DependentUpon>FormAdditionToWarehouse.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="FormClientOrders.resx">
       <DependentUpon>FormClientOrders.cs</DependentUpon>
@@ -258,6 +279,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormReportProductComponents.resx">
       <DependentUpon>FormReportProductComponents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWarehouse.resx">
+      <DependentUpon>FormWarehouse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWarehouses.resx">
+      <DependentUpon>FormWarehouses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -296,6 +323,10 @@
     <ProjectReference Include="..\BlacksmithWorkshopFileImplements\BlacksmithWorkshopFileImplements.csproj">
       <Project>{9b790000-a18b-4800-ab60-10712dd0e055}</Project>
       <Name>BlacksmithWorkshopFileImplements</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlacksmithWorkshopListImplements\BlacksmithWorkshopListImplements.csproj">
+      <Project>{acbadd42-74cd-48b4-856e-51866875306c}</Project>
+      <Name>BlacksmithWorkshopListImplements</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

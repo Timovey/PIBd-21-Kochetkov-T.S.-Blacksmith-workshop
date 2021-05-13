@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlacksmithWorkshopListImplements.Models
+namespace BlacksmithWorkshopFileImplements.Models
 {
     /// <summary>
     /// Компонент, требуемый для изготовления изделия
