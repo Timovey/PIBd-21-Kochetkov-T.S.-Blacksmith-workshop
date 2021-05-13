@@ -9,6 +9,7 @@ namespace BlacksmithWorkshopListImplements
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Manufacture> Products { get; set; }
+        public List<Warehouse> Warehouses { get; set; }
         public List<Client> Clients { get; set; }
         private DataListSingleton()
         {
@@ -16,6 +17,7 @@ namespace BlacksmithWorkshopListImplements
             Orders = new List<Order>();
             Products = new List<Manufacture>();
             Clients = new List<Client>();
+            Warehouses = new List<Warehouse>();
         }
         public static DataListSingleton GetInstance()
         {
