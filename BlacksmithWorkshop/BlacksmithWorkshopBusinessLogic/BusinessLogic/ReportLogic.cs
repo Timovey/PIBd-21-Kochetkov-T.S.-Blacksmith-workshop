@@ -11,15 +11,14 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
 {
     public class ReportLogic
     {
-        private readonly IComponentStorage _componentStorage;
         private readonly IManufactureStorage _manufactureStorage;
         private readonly IOrderStorage _orderStorage;
-        public ReportLogic(IManufactureStorage productStorage, IComponentStorage
-       componentStorage, IOrderStorage orderStorage)
+        private readonly IWarehouseStorage _warehouseStorage;
+        public ReportLogic(IManufactureStorage productStorage, IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
         {
             _manufactureStorage = productStorage;
-            _componentStorage = componentStorage;
             _orderStorage = orderStorage;
+            _warehouseStorage = warehouseStorage;
         }
         /// <summary>
         /// Получение списка компонент с указанием, в каких изделиях используются
@@ -69,6 +68,41 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             })
            .ToList();
         }
+
+        public List<ReportWarehouseComponentViewModel> GetWarehouseComponent()
+        {
+            var warehouses = _warehouseStorage.GetFullList();
+            var list = new List<ReportWarehouseComponentViewModel>();
+            foreach (var warehouse in warehouses)
+            {
+                var record = new ReportWarehouseComponentViewModel
+                {
+                    Name = warehouse.Name,
+                    Components = new List<Tuple<string, int>>(),
+                    TotalCount = 0
+                };
+                foreach (var component in warehouse.WarehouseComponents)
+                {
+                    record.Components.Add(new Tuple<string, int>(component.Value.Item1, component.Value.Item2));
+                    record.TotalCount += component.Value.Item2;
+                }
+                list.Add(record);
+            }
+            return list;
+        }
+
+        public List<OrderReportByDateViewModel> GetOrderReportByDate()
+        {
+            return _orderStorage.GetFullList()
+                .GroupBy(order => order.DateCreate.ToShortDateString())
+                .Select(rec => new OrderReportByDateViewModel
+                {
+                    Date = Convert.ToDateTime(rec.Key),
+                    Count = rec.Count(),
+                    Sum = rec.Sum(order => order.Sum)
+                })
+                .ToList();
+        }
         /// <summary>
         /// Сохранение компонент в файл-Word
         /// </summary>
@@ -80,6 +114,15 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 FileName = model.FileName,
                 Title = "Список изделий",
                 Manufactures = _manufactureStorage.GetFullList()
+            });
+        }
+        public void SaveWarehousesToWordFile(ReportBindingModel model)
+        {
+            SaveToWord.CreateWarehousesDoc(new WarehouseWordInfo
+            {
+                FileName = model.FileName,
+                Title = "Список складов",
+                Warehouses = _warehouseStorage.GetFullList()
             });
         }
         /// <summary>
@@ -95,6 +138,16 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 ComponentManufactures = GetManufactureComponent()
             });
         }
+
+        public void SaveWarehouseComponentToExcelFile(ReportBindingModel model)
+        {
+            SaveToExcel.CreateWarehousesDoc(new WarehousesExcelInfo
+            {
+                FileName = model.FileName,
+                Title = "Список складов",
+                WarehouseComponents = GetWarehouseComponent()
+            });
+        }
         /// <summary>
         /// Сохранение заказов в файл-Pdf
         /// </summary>
@@ -108,6 +161,16 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 DateFrom = model.DateFrom.Value,
                 DateTo = model.DateTo.Value,
                 Orders = GetOrders(model)
+            });
+        }
+
+        public void SaveOrderReportByDateToPdfFile(ReportBindingModel model)
+        {
+            SaveToPdf.CreateDocOrderReportByDate(new PdfInfoOrderReportByDate
+            {
+                FileName = model.FileName,
+                Title = "Список заказов",
+                Orders = GetOrderReportByDate()
             });
         }
     }
