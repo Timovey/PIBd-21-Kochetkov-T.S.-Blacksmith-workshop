@@ -75,19 +75,19 @@ WordTextProperties {Bold = true, Size = "24", } ) },
                     new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "2800" }));
                 cellHeaderName.Append(new Paragraph(new Run(new Text("Название"))));
 
-                TableCell cellHeaderFIO = new TableCell();
-                cellHeaderFIO.Append(new TableCellProperties(
+                TableCell cellHeaderSurname = new TableCell();
+                cellHeaderSurname.Append(new TableCellProperties(
                     new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "4000" }));
-                cellHeaderFIO.Append(new Paragraph(new Run(new Text("ФИО ответственного"))));
+                cellHeaderSurname.Append(new Paragraph(new Run(new Text("Фамилия"))));
 
-                TableCell cellHeaderDateCreation = new TableCell();
-                cellHeaderDateCreation.Append(new TableCellProperties(
+                TableCell cellHeaderDateCreate = new TableCell();
+                cellHeaderDateCreate.Append(new TableCellProperties(
                     new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "1000" }));
-                cellHeaderDateCreation.Append(new Paragraph(new Run(new Text("Дата создания"))));
+                cellHeaderDateCreate.Append(new Paragraph(new Run(new Text("Дата создания"))));
 
                 tableRowHeader.Append(cellHeaderName);
-                tableRowHeader.Append(cellHeaderFIO);
-                tableRowHeader.Append(cellHeaderDateCreation);
+                tableRowHeader.Append(cellHeaderSurname);
+                tableRowHeader.Append(cellHeaderDateCreate);
 
                 table.Append(tableRowHeader);
 
@@ -100,19 +100,19 @@ WordTextProperties {Bold = true, Size = "24", } ) },
                         new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "2800" }));
                     cellName.Append(new Paragraph(new Run(new Text(warehouse.Name))));
 
-                    TableCell cellFIO = new TableCell();
-                    cellFIO.Append(new TableCellProperties(
+                    TableCell cellSurname = new TableCell();
+                    cellSurname.Append(new TableCellProperties(
                         new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "4000" }));
-                    cellFIO.Append(new Paragraph(new Run(new Text(warehouse.Surname))));
+                    cellSurname.Append(new Paragraph(new Run(new Text(warehouse.Surname))));
 
-                    TableCell cellDateCreation = new TableCell();
-                    cellDateCreation.Append(new TableCellProperties(
+                    TableCell cellDateCreate = new TableCell();
+                    cellDateCreate.Append(new TableCellProperties(
                         new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "1000" }));
-                    cellDateCreation.Append(new Paragraph(new Run(new Text(warehouse.DateCreate.ToString()))));
+                    cellDateCreate.Append(new Paragraph(new Run(new Text(warehouse.DateCreate.ToString()))));
 
                     tableRow.Append(cellName);
-                    tableRow.Append(cellFIO);
-                    tableRow.Append(cellDateCreation);
+                    tableRow.Append(cellSurname);
+                    tableRow.Append(cellDateCreate);
 
                     table.Append(tableRow);
                 }
