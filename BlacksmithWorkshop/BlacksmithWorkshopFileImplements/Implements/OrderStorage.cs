@@ -30,7 +30,7 @@ namespace BlacksmithWorkshopFileImplements.Implements
                 return null;
             }
             return source.Orders
-            .Where(ord => ord.ManufactureId == model.ManufactureId && ord.Count == model.Count)
+            .Where(rec => rec.ManufactureId == model.ManufactureId || (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
             .Select(CreateModel)
             .ToList();
         }

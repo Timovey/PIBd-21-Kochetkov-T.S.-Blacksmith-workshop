@@ -40,6 +40,9 @@ namespace BlacksmithWorkshopView
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<WarehouseLogic>(new
            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ReportLogic>(new
+HierarchicalLifetimeManager());
+
             return currentContainer;
         }
     }
