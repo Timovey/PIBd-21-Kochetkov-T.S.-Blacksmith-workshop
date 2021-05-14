@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.Serialization;
-
+using BlacksmithWorkshopBusinessLogic.Attributes;
 
 namespace BlacksmithWorkshopBusinessLogic.ViewModels
 {
@@ -14,10 +13,10 @@ namespace BlacksmithWorkshopBusinessLogic.ViewModels
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        [DisplayName("Название изделия")]
+        [Column(title: "Название изделия", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ManufactureName { get; set; }
         [DataMember]
-        [DisplayName("Цена")]
+        [Column(title: "Цена", width: 50)]
         public decimal Price { get; set; }
         [DataMember]
         public Dictionary<int, (string, int)> ManufactureComponents { get; set; }
