@@ -134,5 +134,11 @@ namespace BlacksmithWorkshopView
             workModeling.DoWork();
             MessageBox.Show("Работы запущены", "Инфо", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void письмаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormMails>();
+            form.ShowDialog();
+        }
     }
 }

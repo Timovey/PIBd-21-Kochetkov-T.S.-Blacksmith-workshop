@@ -16,7 +16,6 @@ namespace BlacksmithWorkshopView
         public int Id { set { id = value; } }
         private readonly ImplementerLogic logic;
         private int? id;
-        private Dictionary<int, (string, int)> employeeComponents;
         public FormImplementer(ImplementerLogic logic)
         {
             InitializeComponent();
