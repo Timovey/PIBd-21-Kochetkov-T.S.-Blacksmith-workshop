@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Delete";
+}
+<div class="text-center">
+    <h2 class="display-4">Удаление склада</h2>
+</div>
+<h3>Вы действительно хотите удалить эту запись?</h3>
+<div class="row">
+    <div class="col-4">Имя:</div>
+    <div class="col-8">@ViewBag.Name</div>
+</div>
+<div class="row">
+    <div class="col-4">Фамилия:</div>
+    <div class="col-8">@ViewBag.Surname</div>
+</div>
+<form method="post">
+    <input type="hidden" name="Id" value="@ViewBag.Id" class="btn btnprimary" />
+    <input type="submit" value="Удалить" class="btn btnprimary" />
+    <div>
+        <a asp-action="Index">Назад</a>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Компонент
+            </th>
+            <th>
+                Количество
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var component in ViewBag.WarehouseComponents)
+        {
+            <tr>
+                <td>
+                    @component.Item1
+                </td>
+                <td>
+                    @component.Item2
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
