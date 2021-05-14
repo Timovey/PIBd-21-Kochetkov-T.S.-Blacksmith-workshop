@@ -17,6 +17,7 @@ namespace BlacksmithWorkshopDatabaseImplement
 		public virtual DbSet<Manufacture> Manufactures { set; get; }
 		public virtual DbSet<ManufactureComponent> ManufactureComponents { set; get; }
 		public virtual DbSet<Order> Orders { set; get; }
+		public virtual DbSet<Client> Clients { set; get; }
 		public virtual DbSet<Warehouse> Warehouses { set; get; }
 		public virtual DbSet<WarehouseComponent> WarehouseComponents { set; get; }
 	}

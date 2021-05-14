@@ -11,7 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithWorkshopListImple
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithWorkshopFileImplements", "BlacksmithWorkshopFileImplements\BlacksmithWorkshopFileImplements.csproj", "{9B790000-A18B-4800-AB60-10712DD0E055}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlacksmithWorkshopDatabaseImplement", "BlacksmithWorkshopDatabaseImplement\BlacksmithWorkshopDatabaseImplement.csproj", "{EFA656D1-431F-4D6A-9F39-FD6102372BF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithWorkshopDatabaseImplement", "BlacksmithWorkshopDatabaseImplement\BlacksmithWorkshopDatabaseImplement.csproj", "{EFA656D1-431F-4D6A-9F39-FD6102372BF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithWorkshopRestApi", "BlacksmithWorkshopRestApi\BlacksmithWorkshopRestApi.csproj", "{0CE15816-D23C-4641-990B-86FF9518941C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithWorkshopClientApp", "BlacksmithWorkshopClientApp\BlacksmithWorkshopClientApp.csproj", "{51E458C3-B043-4EC6-9EDA-AFB9A5EE1C44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlacksmithWorkshopWarehouseApp", "BlacksmithWorkshopWarehouseApp\BlacksmithWorkshopWarehouseApp.csproj", "{D84B2DBF-3934-4B97-9A14-7007C26935CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +45,18 @@ Global
 		{EFA656D1-431F-4D6A-9F39-FD6102372BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFA656D1-431F-4D6A-9F39-FD6102372BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFA656D1-431F-4D6A-9F39-FD6102372BF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CE15816-D23C-4641-990B-86FF9518941C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CE15816-D23C-4641-990B-86FF9518941C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CE15816-D23C-4641-990B-86FF9518941C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CE15816-D23C-4641-990B-86FF9518941C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51E458C3-B043-4EC6-9EDA-AFB9A5EE1C44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E458C3-B043-4EC6-9EDA-AFB9A5EE1C44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E458C3-B043-4EC6-9EDA-AFB9A5EE1C44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E458C3-B043-4EC6-9EDA-AFB9A5EE1C44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D84B2DBF-3934-4B97-9A14-7007C26935CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D84B2DBF-3934-4B97-9A14-7007C26935CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D84B2DBF-3934-4B97-9A14-7007C26935CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D84B2DBF-3934-4B97-9A14-7007C26935CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

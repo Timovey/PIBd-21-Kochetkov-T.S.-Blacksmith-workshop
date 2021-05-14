@@ -10,11 +10,13 @@ namespace BlacksmithWorkshopListImplements
         public List<Order> Orders { get; set; }
         public List<Manufacture> Products { get; set; }
         public List<Warehouse> Warehouses { get; set; }
+        public List<Client> Clients { get; set; }
         private DataListSingleton()
         {
             Components = new List<Component>();
             Orders = new List<Order>();
             Products = new List<Manufacture>();
+            Clients = new List<Client>();
             Warehouses = new List<Warehouse>();
         }
         public static DataListSingleton GetInstance()

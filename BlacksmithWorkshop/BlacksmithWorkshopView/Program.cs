@@ -31,6 +31,8 @@ namespace BlacksmithWorkshopView
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IManufactureStorage, ManufactureStorage>(new
            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IClientStorage, ClientStorage>(new
+           HierarchicalLifetimeManager());
             currentContainer.RegisterType<IWarehouseStorage, WarehouseStorage>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<ComponentLogic>(new
@@ -41,6 +43,8 @@ namespace BlacksmithWorkshopView
             currentContainer.RegisterType<WarehouseLogic>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<ReportLogic>(new
+HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ClientLogic>(new
 HierarchicalLifetimeManager());
 
             return currentContainer;
