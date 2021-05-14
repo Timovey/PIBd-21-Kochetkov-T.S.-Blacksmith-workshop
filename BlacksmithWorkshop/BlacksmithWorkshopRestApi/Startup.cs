@@ -32,6 +32,7 @@ namespace BlacksmithWorkshopRestApi
             services.AddTransient<IWarehouseStorage, WarehouseStorage>();
             services.AddTransient<OrderLogic>();
             services.AddTransient<ClientLogic>();
+            services.AddTransient<ComponentLogic>();
             services.AddTransient<ManufactureLogic>();
             services.AddTransient<MailLogic>();
             MailLogic.MailConfig(new MailConfig
