@@ -44,8 +44,7 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            lock (locker)
-            {
+           
 
                 var order = _orderStorage.GetElement(new OrderBindingModel
                 {
@@ -60,10 +59,8 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 {
                     throw new Exception("Заказ не в статусе \"Принят\"");
                 }
-                
-            }
-        }
-            
+
+     
             if (!_warehouseStorage.Extract(new ChangeWarehouseBindingModel
             {
                 ManufactureId = order.ManufactureId,
