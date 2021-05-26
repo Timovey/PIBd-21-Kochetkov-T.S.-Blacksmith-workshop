@@ -1,17 +1,14 @@
 ﻿@using BlacksmithWorkshopBusinessLogic.ViewModels
-@model List<MessageInfoViewModel>
-@{
-    ViewData["Title"] = "Mail"; }
+@model PageViewModel
+@{ ViewData["Title"] = "Mail"; }
 <div class="text-center">
     <h1 class="display-4">Письма</h1>
 </div>
 <div class="text-center">
-    @{
-        if (Model == null)
-        {
-            <h3 class="display-4">Авторизируйтесь</h3>
-            return;
-        }
+    @{ if (Model == null)
+                    {
+        <h3 class="display-4">Авторизируйтесь</h3> return;
+                    }
         <table class="table">
             <thead>
                 <tr>
@@ -30,23 +27,56 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Messages)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SenderName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Subject)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateDelivery)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Body)
-                        </td>
-                    </tr>
-                }
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SenderName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateDelivery)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Body)
+        </td>
+    </tr>}
             </tbody>
         </table> }
 </div>
+
+<div class="btn-group">
+    @if (Model.HasPreviousPage)
+    {
+        <a asp-action="Mail"
+           asp-route-page="@(Model.PageNumber - 1)"
+           class="btn btn-outline-dark">
+            Назад
+        </a>
+        <a asp-action="Mail"
+           asp-route-page="@(Model.PageNumber - 1)"
+           class="btn btn-outline-dark">
+            @(Model.PageNumber - 1)
+        </a>
+    }
+
+    <a class="btn btn-outline-dark">
+        @(Model.PageNumber)
+    </a>
+
+    @if (Model.HasNextPage)
+    {
+        <a asp-action="Mail"
+           asp-route-page="@(Model.PageNumber + 1)"
+           class="btn btn-outline-dark">
+            @(Model.PageNumber + 1)
+        </a>
+        <a asp-action="Mail"
+           asp-route-page="@(Model.PageNumber + 1)"
+           class="btn btn-outline-dark">
+            Следующая
+        </a>
+    }
+</div> 

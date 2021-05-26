@@ -19,7 +19,7 @@ namespace BlacksmithWorkshopView
             this._orderLogic = orderLogic;
             report = Report;
             dataGridView.DataSource = _orderLogic.Read(null);
-           
+
 
         }
         private void FormMain_Load(object sender, EventArgs e)
@@ -175,49 +175,9 @@ namespace BlacksmithWorkshopView
             MessageBox.Show("Работы запущены", "Инфо", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void письмаToolStripMenuItem_Click(object sender, EventArgs e)
+        private void почтаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormMails>();
-            form.ShowDialog();
-        }
-
-        private void складыToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormWarehouses>();
-            form.ShowDialog();
-        }
-
-        private void пополнениеСкладаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormAdditionToWarehouse>();
-            form.ShowDialog();
-        }
-
-        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    report.SaveWarehousesToWordFile(new ReportBindingModel
-                    {
-                        FileName = dialog.FileName
-                    });
-
-                    MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-        }
-
-        private void компонентыПоСкладамToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormReportWarehouseComponents>();
-            form.ShowDialog();
-        }
-
-        private void списокЗаказовПоДатамToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormReportOrderByDate>();
             form.ShowDialog();
         }
     }

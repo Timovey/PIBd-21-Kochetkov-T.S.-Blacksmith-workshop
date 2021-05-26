@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlacksmithWorkshopDatabaseImplement.Migrations
 {
     [DbContext(typeof(BlacksmithWorkshopDatabase))]
-    [Migration("20210402114140_addClient1")]
-    partial class addClient1
+    [Migration("20210525214704_Initial1")]
+    partial class Initial1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,24 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
                     b.ToTable("Components");
                 });
 
+            modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImplementerFIO")
+                        .IsRequired();
+
+                    b.Property<int>("PauseTime");
+
+                    b.Property<int>("WorkingTime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Implementers");
+                });
+
             modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.Manufacture", b =>
                 {
                     b.Property<int>("Id")
@@ -92,6 +110,28 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
                     b.ToTable("ManufactureComponents");
                 });
 
+            modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.Property<string>("MessageId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Body");
+
+                    b.Property<int?>("ClientId");
+
+                    b.Property<DateTime>("DateDelivery");
+
+                    b.Property<string>("SenderName");
+
+                    b.Property<string>("Subject");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("MessageInfos");
+                });
+
             modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -106,6 +146,8 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
 
                     b.Property<DateTime?>("DateImplement");
 
+                    b.Property<int?>("ImplementerId");
+
                     b.Property<int>("ManufactureId");
 
                     b.Property<int>("Status");
@@ -116,9 +158,51 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
 
                     b.HasIndex("ClientId");
 
+                    b.HasIndex("ImplementerId");
+
                     b.HasIndex("ManufactureId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.Warehouse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreate");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Surname")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Warehouses");
+                });
+
+            modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.WarehouseComponent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ComponentId");
+
+                    b.Property<int>("Count");
+
+                    b.Property<int>("WarehouseId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ComponentId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("WarehouseComponents");
                 });
 
             modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.ManufactureComponent", b =>
@@ -134,6 +218,13 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.HasOne("BlacksmithWorkshopDatabaseImplement.Models.Client", "Client")
+                        .WithMany("MessageInfo")
+                        .HasForeignKey("ClientId");
+                });
+
             modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.Order", b =>
                 {
                     b.HasOne("BlacksmithWorkshopDatabaseImplement.Models.Client", "Client")
@@ -141,9 +232,26 @@ namespace BlacksmithWorkshopDatabaseImplement.Migrations
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("BlacksmithWorkshopDatabaseImplement.Models.Implementer", "Implementer")
+                        .WithMany("Order")
+                        .HasForeignKey("ImplementerId");
+
                     b.HasOne("BlacksmithWorkshopDatabaseImplement.Models.Manufacture", "Manufacture")
                         .WithMany("Orders")
                         .HasForeignKey("ManufactureId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BlacksmithWorkshopDatabaseImplement.Models.WarehouseComponent", b =>
+                {
+                    b.HasOne("BlacksmithWorkshopDatabaseImplement.Models.Component", "Component")
+                        .WithMany("WarehouseComponents")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BlacksmithWorkshopDatabaseImplement.Models.Warehouse", "Warehouse")
+                        .WithMany("WarehouseComponents")
+                        .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

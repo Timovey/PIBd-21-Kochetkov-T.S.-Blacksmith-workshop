@@ -75,30 +75,51 @@ model.ClientId
                 {
                     throw new Exception("Заказ не принят в работу");
                 }
-                _orderStorage.Update(new OrderBindingModel
+                if (order.ImplementerId.HasValue)
+                {
+                    throw new Exception("У заказа уже есть исполнитель");
+                }
+
+                OrderBindingModel updateModel = new OrderBindingModel
                 {
                     Id = order.Id,
-                    ClientId = order.ClientId,
-                    ImplementerId = model.ImplementerId,
                     ManufactureId = order.ManufactureId,
                     Count = order.Count,
                     Sum = order.Sum,
+                    ClientId = order.ClientId,
                     DateCreate = order.DateCreate,
-                    DateImplement = order.DateImplement,
                     Status = OrderStatus.Выполняется
-                });
+                };
+                if (!_warehouseStorage.Extract(new ChangeWarehouseBindingModel
+                {
+                    ManufactureId = order.ManufactureId,
+                    Count = order.Count
+                }))
+                {
+                    updateModel.Status = OrderStatus.Требуются_материалы;
+                }
+                else
+                {
+                    updateModel.DateImplement = DateTime.Now;
+                    updateModel.Status = OrderStatus.Выполняется;
+                    updateModel.ImplementerId = model.ImplementerId;
+                }
+
+                _orderStorage.Update(updateModel);
 
                 MailLogic.MailSendAsync(new MailSendInfo
                 {
                     MailAddress = _clientStorage.GetElement(new ClientBindingModel
                     {
                         Id =
-order.ClientId
+    order.ClientId
                     })?.Email,
                     Subject = $"Заказ №{order.Id}",
                     Text = $"Заказ №{order.Id} передан в работу."
                 });
             }
+
+            
         }
         public void FinishOrder(ChangeStatusBindingModel model)
         {
@@ -111,7 +132,7 @@ order.ClientId
             {
                 throw new Exception("Не найден заказ");
             }
-            if (order.Status == OrderStatus.Выполняется)
+            if (order.Status != OrderStatus.Выполняется)
             {
                 throw new Exception("Заказ не в статусе \"Выполняется\"");
             }
