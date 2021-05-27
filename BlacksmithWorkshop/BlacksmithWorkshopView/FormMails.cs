@@ -78,5 +78,31 @@ namespace BlacksmithWorkshopView
             }
             LoadData(page);
         }
+
+        private void buttonPage_Click(object sender, EventArgs e)
+        {
+            int max = (logic.Count() - 1) / Program.pageSize + 1;
+            if (string.IsNullOrEmpty(textBoxPage.Text))
+            {
+                MessageBox.Show("Заполнитестраницу перехода", "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                page = Convert.ToInt32(textBoxPage.Text);
+                if (page > max || page < 1)
+                {
+                    MessageBox.Show("Нет такой страницы", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                LoadData(page);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
+        }
     }
 }
