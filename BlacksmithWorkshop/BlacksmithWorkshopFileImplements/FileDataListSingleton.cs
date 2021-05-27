@@ -17,9 +17,11 @@ namespace BlacksmithWorkshopFileImplements
         private readonly string ManufactureFileName = "Manufacture.xml";
         private readonly string ClientFileName = "Client.xml";
         private readonly string ImplementerFileName = "Implementer.xml";
+        private readonly string WarehouseFileName = "Warehouse.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Manufacture> Manufactures { get; set; }
+        public List<Warehouse> Warehouses { get; set; }
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
 
@@ -30,6 +32,7 @@ namespace BlacksmithWorkshopFileImplements
             Manufactures = LoadManufactures();
             Clients = LoadClients();
             Implementers = LoadImplementers();
+            Warehouses = LoadWarehouses(); 
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -46,6 +49,7 @@ namespace BlacksmithWorkshopFileImplements
             SaveManufactures();
             SaveClients();
             SaveImplementers();
+            SaveWarehouses();
         }
         private List<Component> LoadComponents()
         {
@@ -125,7 +129,7 @@ namespace BlacksmithWorkshopFileImplements
                 {
                     var prodComp = new Dictionary<int, int>();
                     foreach (var component in
-                   elem.Element("ManufactureComponents").Elements("ManufactureComponent").ToList())
+                    elem.Element("ManufactureComponents").Elements("ManufactureComponent").ToList())
                     {
                         prodComp.Add(Convert.ToInt32(component.Element("Key").Value),
                        Convert.ToInt32(component.Element("Value").Value));
@@ -184,6 +188,37 @@ namespace BlacksmithWorkshopFileImplements
             return list;
         }
 
+
+        private List<Warehouse> LoadWarehouses()
+        {
+
+            var list = new List<Warehouse>();
+            if (File.Exists(WarehouseFileName))
+            {
+                XDocument xDocument = XDocument.Load(WarehouseFileName);
+                var xElements = xDocument.Root.Elements("Warehouse").ToList();
+                foreach (var elem in xElements)
+                {
+                    var warComp = new Dictionary<int, int>();
+                    foreach (var component in
+                    elem.Element("WarehouseComponents").Elements("WarehouseComponent").ToList())
+                    {
+                        warComp.Add(Convert.ToInt32(component.Element("Key").Value),
+                       Convert.ToInt32(component.Element("Value").Value));
+                    }
+
+                    list.Add(new Warehouse
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        Name = elem.Element("Name").Value,
+                        Surname = elem.Element("Surname").Value,
+                        DateCreate = Convert.ToDateTime(elem.Element("DataCreate").Value),
+                        WarehouseComponents = warComp
+                    });
+                }
+            }
+            return list;
+        }
         private void SaveComponents()
         {
             if (Components != null)
@@ -284,6 +319,32 @@ namespace BlacksmithWorkshopFileImplements
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ImplementerFileName);
+            }
+        }
+
+        private void SaveWarehouses()
+        {
+            if (Warehouses != null)
+            {
+                var xElement = new XElement("Warehouses");
+                foreach (var warehouse in Warehouses)
+                {
+                    var compElement = new XElement("WarehouseComponents");
+                    foreach (var component in warehouse.WarehouseComponents)
+                    {
+                        compElement.Add(new XElement("WarehouseComponent",
+                        new XElement("Key", component.Key),
+                        new XElement("Value", component.Value)));
+                    }
+                    xElement.Add(new XElement("Warehouse",
+                     new XAttribute("Id", warehouse.Id),
+                     new XElement("Name", warehouse.Name),
+                     new XElement("DataCreate", warehouse.DateCreate),
+                     new XElement("Surname", warehouse.Surname),
+                     compElement));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(WarehouseFileName);
             }
         }
     }

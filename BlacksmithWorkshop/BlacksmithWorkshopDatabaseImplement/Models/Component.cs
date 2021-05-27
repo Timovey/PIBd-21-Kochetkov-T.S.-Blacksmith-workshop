@@ -15,5 +15,8 @@ namespace BlacksmithWorkshopDatabaseImplement.Models
 
         [ForeignKey("ComponentId")]
         public virtual List<ManufactureComponent> ManufactureComponent { get; set; }
+
+        [ForeignKey("ComponentId")]
+        public virtual List<WarehouseComponent> WarehouseComponents { get; set; }
     }
 }

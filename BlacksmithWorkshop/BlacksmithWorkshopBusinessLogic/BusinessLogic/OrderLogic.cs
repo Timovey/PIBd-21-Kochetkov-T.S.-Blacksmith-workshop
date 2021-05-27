@@ -12,9 +12,11 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
     {
         private readonly object locker = new object();
         private readonly IOrderStorage _orderStorage;
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IWarehouseStorage _warehouseStorage;
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
+            _warehouseStorage = warehouseStorage;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
@@ -42,9 +44,10 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
+
             lock (locker)
             {
-
+            
                 var order = _orderStorage.GetElement(new OrderBindingModel
                 {
                     Id =
@@ -54,22 +57,40 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 {
                     throw new Exception("Не найден заказ");
                 }
-                if (order.Status != OrderStatus.Принят)
+                if (order.Status != OrderStatus.Принят && order.Status != OrderStatus.Требуются_материалы)
                 {
-                    throw new Exception("Заказ не в статусе \"Принят\"");
+                    throw new Exception("Заказ не принят в работу");
                 }
-                _orderStorage.Update(new OrderBindingModel
+                if (order.ImplementerId.HasValue)
+                {
+                    throw new Exception("У заказа уже есть исполнитель");
+                }
+
+                OrderBindingModel updateModel = new OrderBindingModel
                 {
                     Id = order.Id,
-                    ClientId = order.ClientId,
-                    ImplementerId = model.ImplementerId,
                     ManufactureId = order.ManufactureId,
                     Count = order.Count,
                     Sum = order.Sum,
+                    ClientId = order.ClientId,
                     DateCreate = order.DateCreate,
-                    DateImplement = order.DateImplement,
                     Status = OrderStatus.Выполняется
-                });
+                };
+                if (!_warehouseStorage.Extract(new ChangeWarehouseBindingModel
+                {
+                    ManufactureId = order.ManufactureId,
+                    Count = order.Count
+                }))
+                {
+                    updateModel.Status = OrderStatus.Требуются_материалы;
+                }
+                else
+                {
+                    updateModel.DateImplement = DateTime.Now;
+                    updateModel.Status = OrderStatus.Выполняется;
+                    updateModel.ImplementerId = model.ImplementerId;
+                }
+                _orderStorage.Update(updateModel);
             }
         }
         public void FinishOrder(ChangeStatusBindingModel model)
@@ -83,22 +104,21 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
             {
                 throw new Exception("Не найден заказ");
             }
-            if (order.Status != OrderStatus.Выполняется)
+            if (order.Status == OrderStatus.Выполняется)
             {
-                throw new Exception("Заказ не в статусе \"Выполняется\"");
+                _orderStorage.Update(new OrderBindingModel
+                {
+                    Id = order.Id,
+                    ManufactureId = order.ManufactureId,
+                    ImplementerId = order.ImplementerId,
+                    ClientId = order.ClientId,
+                    Count = order.Count,
+                    Sum = order.Sum,
+                    DateCreate = order.DateCreate,
+                    DateImplement = order.DateImplement,
+                    Status = OrderStatus.Готов
+                });
             }
-            _orderStorage.Update(new OrderBindingModel
-            {
-                Id = order.Id,
-                ClientId = order.ClientId,
-                ImplementerId = order.ImplementerId,
-                ManufactureId = order.ManufactureId,
-                Count = order.Count,
-                Sum = order.Sum,
-                DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now,
-                Status = OrderStatus.Готов
-            });
         }
         public void PayOrder(ChangeStatusBindingModel model)
         {

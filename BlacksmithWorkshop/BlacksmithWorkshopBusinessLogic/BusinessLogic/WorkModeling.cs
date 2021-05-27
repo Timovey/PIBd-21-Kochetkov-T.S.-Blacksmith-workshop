@@ -1,4 +1,5 @@
 ﻿using BlacksmithWorkshopBusinessLogic.BindingModels;
+using BlacksmithWorkshopBusinessLogic.Enums;
 using BlacksmithWorkshopBusinessLogic.Interfaces;
 using BlacksmithWorkshopBusinessLogic.ViewModels;
 using System;
@@ -61,6 +62,39 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                 // отдыхаем
                 Thread.Sleep(implementer.PauseTime);
             }
+
+            var requiredRawOrders = await Task.Run(() => _orderStorage.GetFilteredList(new OrderBindingModel { Status = OrderStatus.Требуются_материалы }));
+
+            foreach (var order in requiredRawOrders)
+            {
+                try
+                {
+                    _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
+                    {
+                        OrderId = order.Id,
+                        ImplementerId = implementer.Id
+                    });
+
+                    var processedOrder = _orderStorage.GetElement(new OrderBindingModel
+                    {
+                        Id = order.Id
+                    });
+
+                    if (processedOrder.Status == OrderStatus.Требуются_материалы)
+                    {
+                        continue;
+                    }
+
+                    Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
+                    _orderLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id });
+                    Thread.Sleep(implementer.PauseTime);
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                }
+            }
+
             await Task.Run(() => {
                 foreach (var order in orders)
                 {
@@ -83,7 +117,9 @@ namespace BlacksmithWorkshopBusinessLogic.BusinessLogic
                         // отдыхаем
                         Thread.Sleep(implementer.PauseTime);
                     }
-                    catch (Exception) { }
+                    catch (Exception ex) {
+                        ex.ToString();
+                    }
                 }
             });
         }
