@@ -56,5 +56,26 @@ namespace BlacksmithWorkshopRestApi.Controllers
                 throw new Exception($"Пароль длиной от {_passwordMinLength} до { _passwordMaxLength } должен быть и из цифр, букв и небуквенных символов должен состоять");
             }
         }
+
+        [HttpGet]
+        public PageViewModel GetPage(int pageSize, int page, int ClientId)
+        {
+            return new PageViewModel
+            {
+                PageSize = pageSize
+                ,
+                PageNumber =
+                page,
+                TotalItems = _mailLogic.Count(),
+                Messages =
+                _mailLogic.GetMessagesPage(new MessageInfoBindingModel
+                {
+                    Page = page,
+                    PageSize = pageSize,
+                    ClientId = ClientId
+
+                })
+            };
+        }
     }
 }

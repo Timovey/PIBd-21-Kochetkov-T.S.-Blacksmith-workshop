@@ -16,7 +16,7 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
         {
             using (var context = new BlacksmithWorkshopDatabase())
             {
-                return context.Orders.Include(rec => rec.Client).Include(rec => rec.Implementer).Select(rec => new OrderViewModel
+                return context.Orders.Include(rec => rec.Manufacture).Include(rec => rec.Client).Include(rec => rec.Implementer).Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
                     ManufactureId = rec.ManufactureId,
@@ -42,7 +42,7 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
             using (var context = new BlacksmithWorkshopDatabase())
             {
                 return context.Orders.Include(rec => rec.Manufacture).Include(rec => rec.Client).Include(rec => rec.Implementer).
-                    Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                    Where(rec => ((model.Status == OrderStatus.Требуются_материалы && rec.Status == OrderStatus.Требуются_материалы) || !model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
                     (model.DateFrom.HasValue && model.DateTo.HasValue && 
                     rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
                     (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
@@ -63,6 +63,7 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
                         DateImplement = rec.DateImplement
                     }).ToList();
 
+
             }
         }
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -73,8 +74,10 @@ namespace BlacksmithWorkshopDatabaseImplement.Implements
             }
             using (var context = new BlacksmithWorkshopDatabase())
             {
-                var order = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-                return order != null ? new OrderViewModel
+                var order = context.Orders.Include(rec => rec.Manufacture)
+                .FirstOrDefault(rec => rec.Id == model.Id || rec.Id == model.Id);
+                return order != null ?
+                new OrderViewModel
                 {
                     Id = order.Id,
                     ManufactureId = order.ManufactureId,

@@ -84,5 +84,31 @@ namespace BlacksmithWorkshopListImplements.Implements
                 Body = message.Body,
             };
         }
+
+        public List<MessageInfoViewModel> GetMessagesPage(MessageInfoBindingModel model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            List<MessageInfoViewModel> result = new List<MessageInfoViewModel>();
+            foreach (var elem in source.Messages.GetRange((model.Page.Value - 1) * model.PageSize.Value, model.PageSize.Value))
+            {
+                result.Add(new MessageInfoViewModel
+                {
+                    MessageId = elem.MessageId,
+                    SenderName = elem.SenderName,
+                    DateDelivery = elem.DateDelivery,
+                    Subject = elem.Subject,
+                    Body = elem.Body,
+                });
+            }
+            return result;
+        }
+
+        public int Count()
+        {
+            return source.Messages.Count;
+        }
     }
 }
